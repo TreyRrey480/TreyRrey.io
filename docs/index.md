@@ -5,13 +5,13 @@ tags:
 - tag2
 ---
 <center>
-<font size= "6">(Your Name) Datasheet</font><br>
+<font size= "6">Troy Reynolds Datasheet</font><br>
 as part of<br>
 <font size= "8"> Project Name</font><br>
 for<br>
-<font size= "5"> Team ### </font><br>
+<font size= "5"> Team 201 </font><br>
 
-**Submission: month, DD, YYYY**
+**Submission: 9, 2, 2026**
 </center>
 
 ## Introduction
