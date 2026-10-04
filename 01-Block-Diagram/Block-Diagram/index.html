@@ -26,7 +26,7 @@
 
     
       
-        <title>Individal Block Diagram - EGR 304 Troy Reynolds Data Sheet</title>
+        <title>Individual Block Diagram - EGR 304 Troy Reynolds Data Sheet</title>
       
     
     
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Individal Block Diagram
+              Individual Block Diagram
             
           </span>
         </div>
@@ -471,7 +471,7 @@
           
   
   <span class="md-ellipsis">
-    Individal Block Diagram
+    Individual Block Diagram
   </span>
   
 
@@ -482,7 +482,7 @@
         
   
   <span class="md-ellipsis">
-    Individal Block Diagram
+    Individual Block Diagram
   </span>
   
 
@@ -511,9 +511,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-block-diagram" class="md-nav__link">
+  <a href="#individual-block-diagram" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Block Diagram
+      Individual Block Diagram
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#liquid-amount-sensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Liquid Amount Sensing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#team-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Communication
     </span>
   </a>
   
@@ -809,9 +836,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-block-diagram" class="md-nav__link">
+  <a href="#individual-block-diagram" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Block Diagram
+      Individual Block Diagram
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#power" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#liquid-amount-sensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Liquid Amount Sensing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#team-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Communication
     </span>
   </a>
   
@@ -840,21 +894,64 @@
   
 
 
-  <h1>Individal Block Diagram</h1>
+  <h1>Individual Block Diagram</h1>
 
 <h2 id="overview">Overview</h2>
-<p>This needs to be updated with a brief purpose for having the block diagram.
-Things to mention are:
-* power levels
-* sensor
-* Actuator
-* team connections
-* Power source
-* ...</p>
-<p>To get some initial formatting help, one can view <a href="https://embedded-systems-design.github.io/EGR304DataSheetTemplate/Appendix/basic-markdown-examples/">"here"</a> some basic techniques.</p>
-<h2 id="example-block-diagram">Example Block Diagram</h2>
-<p>Showing an example of how to import a screenshot of the block diagram created outside of git and brought into a page.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../individual-block-diagram.png" data-desc-position="bottom"><img alt="Example of Indivial Block diagram " src="../individual-block-diagram.png"></a></p>
+<p>The individual block diagram documents the electrical design of the Liquid Amount Sensing subsystem for Fill-A-Bot. The subsystem measures the amount of liquid using a 1 kg load cell connected to an HX711 24-bit ADC and load cell amplifier. A PIC18F57Q43 Curiosity Nano reads the HX711 and communicates with the Fill-A-Bot main controller using I2C.</p>
+<p>The subsystem receives regulated +5 V power from the team power supply through the 8-pin ribbon cable. The ribbon cable also provides the SDA and SCL connections used for communication with the main controller and a common ground connection.</p>
+<h2 id="individual-block-diagram">Individual Block Diagram</h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../individual-block-diagram.png" data-desc-position="bottom"><img alt="Fill-A-Bot Liquid Amount Sensing Individual Block Diagram" src="../individual-block-diagram.png"></a></p>
+<p><strong>Figure 1:</strong> Individual block diagram for the Fill-A-Bot Liquid Amount Sensing subsystem.</p>
+<h2 id="power">Power</h2>
+<p>The subsystem operates from a regulated +5 V supply provided by the Fill-A-Bot main controller. The 5 V regulator is rated for up to 1 A. Power is provided through Pin 4 of the 8-pin ribbon cable, while Pin 8 provides the common ground connection.</p>
+<h2 id="liquid-amount-sensing">Liquid Amount Sensing</h2>
+<p>A 1 kg Harfington load cell is used to measure the weight of the liquid. The load cell uses a 5 V excitation and produces a differential analog output of approximately 5 mV at full-scale load. The A+ and A- differential outputs are connected to the HX711.</p>
+<p>The HX711 is a 24-bit ADC and load cell amplifier used to convert the small differential signal from the load cell into digital measurement data. The PIC18F57Q43 communicates with the HX711 using two digital signals. RC1 provides the SCK/PD_SCK clock signal, and RC0 receives the DOUT signal from the HX711.</p>
+<h2 id="team-communication">Team Communication</h2>
+<p>The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using I2C. RB2 is used for SDA and RB1 is used for SCL.</p>
+<p>The 8-pin ribbon cable connections used by this subsystem are:</p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>SDA</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SCL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td>4</td>
+<td>+5 V</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td>8</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
 
 
 
