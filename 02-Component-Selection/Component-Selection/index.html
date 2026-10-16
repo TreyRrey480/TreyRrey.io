@@ -569,6 +569,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pin-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pin Table
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -823,6 +832,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#pin-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pin Table
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -847,6 +865,7 @@
 
 
 <h1 id="component-selection">Component Selection</h1>
+<p><strong>Individual Subsystem: Liquid Amount Sensing</strong></p>
 <p>The Liquid Amount Sensing subsystem measures the amount of liquid in the
 Fill-A-Bot using a load cell. The small differential signal from the load cell
 must be amplified and converted into digital data before it can be processed
@@ -934,6 +953,68 @@ which simplifies prototyping and reduces PCB design risk. Although the
 NAU7802 is less expensive and provides an I2C-compatible interface, the
 complete HX711 breakout board provides the simplest implementation for the
 Liquid Amount Sensing subsystem.</p>
+<h2 id="pin-table">Pin Table</h2>
+<p><em>Table 3: Liquid Amount Sensing subsystem pin connections</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Component</strong></th>
+<th><strong>Pin / Signal</strong></th>
+<th><strong>Connection</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Soldered 555026 Load Cell</td>
+<td>Red - Input+</td>
+<td>HX711 E+</td>
+<td>Positive load-cell excitation</td>
+</tr>
+<tr>
+<td>Soldered 555026 Load Cell</td>
+<td>Black - Input-</td>
+<td>HX711 E-</td>
+<td>Negative load-cell excitation</td>
+</tr>
+<tr>
+<td>Soldered 555026 Load Cell</td>
+<td>Green - Output+</td>
+<td>HX711 A+</td>
+<td>Positive differential load-cell signal</td>
+</tr>
+<tr>
+<td>Soldered 555026 Load Cell</td>
+<td>White - Output-</td>
+<td>HX711 A-</td>
+<td>Negative differential load-cell signal</td>
+</tr>
+<tr>
+<td>SparkFun SEN-13879 HX711</td>
+<td>VCC</td>
+<td>5 V</td>
+<td>Power for HX711 module</td>
+</tr>
+<tr>
+<td>SparkFun SEN-13879 HX711</td>
+<td>GND</td>
+<td>GND</td>
+<td>Common system ground</td>
+</tr>
+<tr>
+<td>SparkFun SEN-13879 HX711</td>
+<td>DOUT</td>
+<td>PIC18F57Q43 GPIO</td>
+<td>Serial load-cell measurement data</td>
+</tr>
+<tr>
+<td>SparkFun SEN-13879 HX711</td>
+<td>CLK</td>
+<td>PIC18F57Q43 GPIO</td>
+<td>HX711 serial clock</td>
+</tr>
+</tbody>
+</table>
 
 
 
