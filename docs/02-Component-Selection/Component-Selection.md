@@ -3,6 +3,7 @@ title: Component Selection
 ---
 
 # Component Selection
+**Individual Subsystem: Liquid Amount Sensing**
 
 The Liquid Amount Sensing subsystem measures the amount of liquid in the
 Fill-A-Bot using a load cell. The small differential signal from the load cell
@@ -63,3 +64,18 @@ which simplifies prototyping and reduces PCB design risk. Although the
 NAU7802 is less expensive and provides an I2C-compatible interface, the
 complete HX711 breakout board provides the simplest implementation for the
 Liquid Amount Sensing subsystem.
+
+## Pin Table
+
+*Table 3: Liquid Amount Sensing subsystem pin connections*
+
+| **Component** | **Pin / Signal** | **Connection** | **Purpose** |
+| --- | --- | --- | --- |
+| Soldered 555026 Load Cell | Red - Input+ | HX711 E+ | Positive load-cell excitation |
+| Soldered 555026 Load Cell | Black - Input- | HX711 E- | Negative load-cell excitation |
+| Soldered 555026 Load Cell | Green - Output+ | HX711 A+ | Positive differential load-cell signal |
+| Soldered 555026 Load Cell | White - Output- | HX711 A- | Negative differential load-cell signal |
+| SparkFun SEN-13879 HX711 | VCC | 5 V | Power for HX711 module |
+| SparkFun SEN-13879 HX711 | GND | GND | Common system ground |
+| SparkFun SEN-13879 HX711 | DOUT | PIC18F57Q43 GPIO | Serial load-cell measurement data |
+| SparkFun SEN-13879 HX711 | CLK | PIC18F57Q43 GPIO | HX711 serial clock |
