@@ -78,4 +78,4 @@ Liquid Amount Sensing subsystem.
 | SparkFun SEN-13879 HX711 | VCC | 5 V | Power for HX711 module |
 | SparkFun SEN-13879 HX711 | GND | GND | Common system ground |
 | SparkFun SEN-13879 HX711 | DOUT | PIC18F57Q43 GPIO | Serial load-cell measurement data |
-| SparkFun SEN-13879 HX711 | CLK | PIC18F57Q43 GPIO | HX711 serial clock |
+| SparkFun SEN-13879 HX711 | PD_SCK | PIC18F57Q43 GPIO | HX711 serial clock |
