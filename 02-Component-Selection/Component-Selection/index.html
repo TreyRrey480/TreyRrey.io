@@ -884,17 +884,17 @@ load cells and load-cell ADC/amplifier solutions for this subsystem.</p>
 </thead>
 <tbody>
 <tr>
-<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../loadcell_soldered_555026.png" data-desc-position="bottom"><img alt="" src="../loadcell_soldered_555026.png"></a><br><strong>Option 1</strong><br>Soldered Electronics 555026<br>1 kg Load Cell<br>$15.96/each<br><a href="https://www.digikey.com/en/products/detail/soldered-electronics/555026/29271488">Link to product</a></td>
+<td><br><strong>Option 1</strong><br>Soldered Electronics 555026<br>1 kg Load Cell<br>$15.96/each<br><a href="https://www.digikey.com/en/products/detail/soldered-electronics/555026/29271488">Link to product</a></td>
 <td>* 1 kg maximum load is appropriate for the liquid container<br>* Operates from 5 V to 10 V<br>* 2 ±0.1 mV/V output sensitivity<br>* Wheatstone bridge design works with a load-cell ADC<br>* Manufacturer specifically recommends an HX711 interface</td>
 <td>* More expensive than the Adafruit option<br>* Requires an ADC/amplifier to measure the small output signal<br>* Requires calibration<br>* DigiKey currently lists the part as out of stock</td>
 </tr>
 <tr>
-<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../loadcell_adafruit_4540.png" data-desc-position="bottom"><img alt="" src="../loadcell_adafruit_4540.png"></a><br><strong>Option 2</strong><br>Adafruit Industries 4540<br>1 kgf Load Cell<br>$3.95/each<br><a href="https://www.digikey.com/en/products/detail/adafruit-industries-llc/4540/12323569">Link to product</a></td>
+<td><br><strong>Option 2</strong><br>Adafruit Industries 4540<br>1 kgf Load Cell<br>$3.95/each<br><a href="https://www.digikey.com/en/products/detail/adafruit-industries-llc/4540/12323569">Link to product</a></td>
 <td>* 1 kg measurement range is appropriate for the project<br>* Lowest-cost load cell of the three options<br>* Compact load-cell design<br>* Large quantity available from DigiKey</td>
 <td>* Requires an external ADC/amplifier<br>* Requires calibration before accurate measurements can be made<br>* Available documentation provides less electrical information than the Soldered load cell</td>
 </tr>
 <tr>
-<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../loadcell_seeed_314990000.png" data-desc-position="bottom"><img alt="" src="../loadcell_seeed_314990000.png"></a><br><strong>Option 3</strong><br>Seeed Technology 314990000<br>0-500 g Load Cell<br>$17.00/each<br><a href="https://www.digikey.com/en/products/detail/seeed-technology-co-ltd/314990000/5488115">Link to product</a></td>
+<td><br><strong>Option 3</strong><br>Seeed Technology 314990000<br>0-500 g Load Cell<br>$17.00/each<br><a href="https://www.digikey.com/en/products/detail/seeed-technology-co-ltd/314990000/5488115">Link to product</a></td>
 <td>* Designed for electronic weighing applications<br>* Recommended 5 V excitation matches the subsystem supply<br>* 0.5 ±0.1 mV/V output sensitivity<br>* ±0.05% full-scale nonlinearity specification</td>
 <td>* Maximum capacity is only 500 g<br>* Container plus liquid could exceed the 500 g limit<br>* Most expensive load-cell option<br>* Requires an external ADC/amplifier</td>
 </tr>
@@ -925,17 +925,17 @@ design.</p>
 </thead>
 <tbody>
 <tr>
-<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../adc_hx711_13879.png" data-desc-position="bottom"><img alt="" src="../adc_hx711_13879.png"></a><br><strong>Option 1</strong><br>SparkFun Electronics SEN-13879<br>HX711 Load Cell Amplifier<br>$11.50/each<br><a href="https://www.digikey.com/en/products/detail/sparkfun-electronics/13879/6202732">Link to product</a></td>
+<td><br><strong>Option 1</strong><br>SparkFun Electronics SEN-13879<br>HX711 Load Cell Amplifier<br>$11.50/each<br><a href="https://www.digikey.com/en/products/detail/sparkfun-electronics/13879/6202732">Link to product</a></td>
 <td>* 24-bit ADC designed specifically for weigh scales and bridge sensors<br>* Built-in low-noise programmable gain amplifier<br>* Selectable gain of 32, 64, or 128<br>* Operates from 2.6 V to 5.5 V<br>* Complete breakout board simplifies prototyping<br>* Simple clock and data interface to the microcontroller</td>
 <td>* More expensive than a bare ADC IC<br>* Maximum standard sample rate is 80 SPS<br>* Does not use the standard I2C protocol<br>* Requires software calibration for accurate weight measurements</td>
 </tr>
 <tr>
-<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../adc_nau7802.png" data-desc-position="bottom"><img alt="" src="../adc_nau7802.png"></a><br><strong>Option 2</strong><br>Nuvoton Technology NAU7802KGI<br>24-bit Load Cell ADC<br>$2.26/each<br><a href="https://www.digikey.com/en/products/detail/nuvoton-technology-corporation/NAU7802KGI/2769783">Link to product</a></td>
+<td><br><strong>Option 2</strong><br>Nuvoton Technology NAU7802KGI<br>24-bit Load Cell ADC<br>$2.26/each<br><a href="https://www.digikey.com/en/products/detail/nuvoton-technology-corporation/NAU7802KGI/2769783">Link to product</a></td>
 <td>* 24-bit sigma-delta ADC designed for bridge and strain-gauge sensors<br>* Programmable gain from 1 to 128<br>* I2C-compatible interface<br>* Operates from 2.7 V to 5.5 V<br>* Through-hole 16-PDIP package is convenient for prototyping<br>* Significantly less expensive than the HX711 module</td>
 <td>* Bare IC requires additional support circuitry<br>* More software configuration is required<br>* Requires register configuration over I2C<br>* More complex to integrate than a complete breakout board</td>
 </tr>
 <tr>
-<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../adc_ads1232.png" data-desc-position="bottom"><img alt="" src="../adc_ads1232.png"></a><br><strong>Option 3</strong><br>Texas Instruments ADS1232IPWR<br>24-bit Bridge Sensor ADC<br>$8.50/each<br><a href="https://www.digikey.com/en/products/detail/texas-instruments/ADS1232IPWR/1689138">Link to product</a></td>
+<td><br><strong>Option 3</strong><br>Texas Instruments ADS1232IPWR<br>24-bit Bridge Sensor ADC<br>$8.50/each<br><a href="https://www.digikey.com/en/products/detail/texas-instruments/ADS1232IPWR/1689138">Link to product</a></td>
 <td>* 24-bit ADC specifically designed for bridge sensors and weigh scales<br>* Low-noise programmable gain amplifier<br>* Selectable gains of 1, 2, 64, and 128<br>* Two differential input channels<br>* Operates from 2.7 V to 5.3 V<br>* 10 SPS mode provides strong 50 Hz and 60 Hz noise rejection</td>
 <td>* Surface-mount 24-TSSOP package is more difficult to prototype<br>* Requires additional external support components<br>* More complex PCB layout than the HX711 breakout board<br>* More expensive than the NAU7802 bare IC</td>
 </tr>
