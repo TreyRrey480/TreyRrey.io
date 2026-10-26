@@ -557,6 +557,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Team Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weight-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight Command
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weight-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight Status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -590,6 +614,15 @@
   <a href="#debugging-and-test-points" class="md-nav__link">
     <span class="md-ellipsis">
       Debugging and Test Points
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Summary
     </span>
   </a>
   
@@ -929,6 +962,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Team Communication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weight-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight Command
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weight-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight Status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -967,6 +1024,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#design-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Summary
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -993,7 +1059,7 @@
 <h1 id="individual-block-diagram">Individual Block Diagram</h1>
 <h2 id="overview">Overview</h2>
 <p>The individual block diagram documents the electrical design of the Liquid Amount Sensing subsystem for Fill-A-Bot. The subsystem uses a 1 kg load cell to measure the weight of the liquid. The small differential signal produced by the load cell is measured by a Nuvoton NAU7802KGI 24-bit sigma-delta ADC with a programmable gain amplifier.</p>
-<p>A Microchip PIC18F57Q43 Curiosity Nano processes the weight measurement and interfaces with the rest of the Fill-A-Bot system using direct digital HIGH/LOW signals through TEAM_IN and TEAM_OUT.</p>
+<p>A Microchip PIC18F57Q43 Curiosity Nano processes the weight measurement and interfaces with the Fill-A-Bot main controller using a four-wire direct digital interface. Two command inputs, C1 and C0, select one of four weight presets, while two status outputs, S1 and S0, report the current state of the Liquid Amount Sensing subsystem.</p>
 <p>The subsystem also includes local 5 V power regulation, a load-cell connector, ADC interface circuitry, a tare/zero pushbutton, status LED, GPIO expansion, and test points.</p>
 <h2 id="individual-block-diagram_1">Individual Block Diagram</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../individual-block-diagram.png" data-desc-position="bottom"><img alt="Fill-A-Bot Liquid Amount Sensing Individual Block Diagram" src="../individual-block-diagram.png"></a></p>
@@ -1013,9 +1079,7 @@
 </ul>
 <p>The load cell connects to the sensor PCB through an On Shore Technology OSTVN04A150 4-position load-cell connector.</p>
 <p>The A+ and A- differential signals are routed to the NAU7802KGI through the analog input circuitry. Two 47 Ω series resistors and a 0.1 µF capacitor help filter noise from the low-level differential signal before analog-to-digital conversion.</p>
-<p>The A+ and A- connections form a differential analog signal pair between the
-load cell and the NAU7802. These two signal connections carry the low-level
-millivolt output produced by the load cell.</p>
+<p>The A+ and A- connections form a differential analog signal pair between the load cell and the NAU7802. These two signal connections carry the low-level millivolt output produced by the load cell.</p>
 <h2 id="nau7802-adc-interface">NAU7802 ADC Interface</h2>
 <p>The Nuvoton NAU7802KGI is a 24-bit sigma-delta ADC with a programmable gain amplifier. It amplifies and converts the small differential voltage produced by the load cell into digital measurement data that can be processed by the PIC18F57Q43.</p>
 <p>The NAU7802 connects locally to the Curiosity Nano using three digital signals:</p>
@@ -1048,7 +1112,8 @@ millivolt output produced by the load cell.</p>
 <p>The SDIO and SCLK lines use 4.7 kΩ pull-up resistors.</p>
 <p>This ADC interface is local to the Liquid Amount Sensing subsystem and is separate from the direct digital communication used between the Fill-A-Bot subsystem boards.</p>
 <h2 id="team-communication">Team Communication</h2>
-<p>The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using direct digital HIGH/LOW signals rather than UART or I2C.</p>
+<p>The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using four direct digital HIGH/LOW signals rather than UART or I2C.</p>
+<p>Two signals, C1 and C0, are inputs from the main controller and form a two-bit weight command. Two signals, S1 and S0, are outputs from the Liquid Amount Sensing subsystem and form a two-bit weight status.</p>
 <p>The 8-position team connector uses the following connections:</p>
 <table>
 <thead>
@@ -1056,38 +1121,130 @@ millivolt output produced by the load cell.</p>
 <th><strong>Connector Pin</strong></th>
 <th><strong>Signal</strong></th>
 <th><strong>PIC Pin</strong></th>
+<th><strong>Direction</strong></th>
 <th><strong>Purpose</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Pin 1</td>
-<td>TEAM_IN</td>
+<td>C1</td>
 <td>RA3</td>
-<td>Receives a digital HIGH/LOW state from the main controller</td>
+<td>Input</td>
+<td>Weight-command bit 1</td>
 </tr>
 <tr>
 <td>Pin 2</td>
-<td>TEAM_OUT</td>
+<td>C0</td>
 <td>RA4</td>
-<td>Sends a digital HIGH/LOW state to the main controller</td>
+<td>Input</td>
+<td>Weight-command bit 0</td>
 </tr>
 <tr>
-<td>Pins 3–7</td>
+<td>Pin 3</td>
+<td>S1</td>
+<td>RE2</td>
+<td>Output</td>
+<td>Weight-status bit 1</td>
+</tr>
+<tr>
+<td>Pin 4</td>
+<td>S0</td>
+<td>RC7</td>
+<td>Output</td>
+<td>Weight-status bit 0</td>
+</tr>
+<tr>
+<td>Pin 5</td>
 <td>NC</td>
 <td>—</td>
-<td>Unused by this subsystem</td>
+<td>—</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td>Pin 6</td>
+<td>NC</td>
+<td>—</td>
+<td>—</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td>Pin 7</td>
+<td>NC</td>
+<td>—</td>
+<td>—</td>
+<td>Unused</td>
 </tr>
 <tr>
 <td>Pin 8</td>
 <td>GND</td>
 <td>GND</td>
+<td>—</td>
 <td>Common ground between subsystem boards</td>
 </tr>
 </tbody>
 </table>
-<p>TEAM_IN allows the main controller to provide a control state to the Liquid Amount Sensing board.</p>
-<p>TEAM_OUT allows the Liquid Amount Sensing board to provide a status state to the main controller, such as indicating that the desired weight condition has been reached.</p>
+<h3 id="weight-command">Weight Command</h3>
+<p>C1 and C0 allow the main controller to select one of four weight presets.</p>
+<table>
+<thead>
+<tr>
+<th><strong>C1 C0</strong></th>
+<th><strong>Command</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Preset 1</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Preset 2</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Preset 3</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Preset 4</td>
+</tr>
+</tbody>
+</table>
+<p>The C1 and C0 inputs are connected to PIC pins RA3 and RA4.</p>
+<p>R7 and R8 provide 100 kΩ pull-down resistance on the command inputs so that C1 and C0 default LOW when the main controller is not actively driving the lines.</p>
+<h3 id="weight-status">Weight Status</h3>
+<p>S1 and S0 allow the Liquid Amount Sensing subsystem to report its current state to the main controller.</p>
+<table>
+<thead>
+<tr>
+<th><strong>S1 S0</strong></th>
+<th><strong>Status</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Not ready</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Below target</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Target reached</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<p>S1 and S0 are generated by PIC pins RE2 and RC7.</p>
+<p>The S1 and S0 outputs will be initialized LOW by the subsystem software.</p>
+<p>The team connector does not carry subsystem power. Pins 1 through 4 are used for direct digital communication, Pins 5 through 7 are unused, and Pin 8 provides the common ground connection between the subsystem and main controller.</p>
 <h2 id="tare-zero-input">Tare / Zero Input</h2>
 <p>A momentary pushbutton is connected to PIC pin RA0 and is used as the TARE/ZERO input.</p>
 <p>The input uses a 10 kΩ pull-up resistor. When the button is not pressed, the input is held HIGH. When the button is pressed, RA0 is connected to ground and becomes LOW.</p>
@@ -1102,6 +1259,15 @@ millivolt output produced by the load cell.</p>
 <h2 id="debugging-and-test-points">Debugging and Test Points</h2>
 <p>Five test points are included on the subsystem PCB to provide convenient access to important power and ADC-related signals during subsystem testing and verification.</p>
 <p>The status LED, tare/zero pushbutton, GPIO expansion header, and test points provide additional hardware access for testing and debugging without changing the normal operation of the Liquid Amount Sensing subsystem.</p>
+<h2 id="design-summary">Design Summary</h2>
+<p>The Liquid Amount Sensing subsystem measures liquid weight using the 1 kg load cell and NAU7802 ADC and processes the measurement with the PIC18F57Q43.</p>
+<p>The measurement path is:</p>
+<p><strong>Load Cell → Analog Input Filter → NAU7802 → PIC18F57Q43</strong></p>
+<p>The command path is:</p>
+<p><strong>Main Controller → C1/C0 → RA3/RA4 → PIC18F57Q43</strong></p>
+<p>The status path is:</p>
+<p><strong>PIC18F57Q43 → RE2/RC7 → S1/S0 → Main Controller</strong></p>
+<p>The four-wire digital interface allows the main controller to select one of four weight presets and allows the Liquid Amount Sensing subsystem to report whether it is not ready, below the target, at the target, or in an error state.</p>
 
 
 
