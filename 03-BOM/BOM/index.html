@@ -616,6 +616,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#team-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       Notes
@@ -833,6 +842,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#team-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Interface
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       Notes
@@ -869,9 +887,11 @@
 <p>The following Bill of Materials lists the components used in the
 Fill-A-Bot Liquid Amount Sensing subsystem. The subsystem uses a 1 kg
 load cell and NAU7802KGI 24-bit ADC to measure liquid weight, a
-PIC18F57Q43 Curiosity Nano for processing and control, and direct
-digital TEAM_IN and TEAM_OUT signals for communication with the
-team controller.</p>
+PIC18F57Q43 Curiosity Nano for processing and control, and a four-wire
+direct digital interface for communication with the main controller.</p>
+<p>The team interface uses two command inputs, C1 and C0, to select one of
+four weight presets and two status outputs, S1 and S0, to report the
+current state of the Liquid Amount Sensing subsystem.</p>
 <h2 id="bill-of-materials_1">Bill of Materials</h2>
 <p><em>Table 1: Liquid Amount Sensing subsystem Bill of Materials</em></p>
 <table>
@@ -1039,6 +1059,14 @@ team controller.</p>
 <td>4.7 kΩ, ±1%, 1/4 W, THT</td>
 </tr>
 <tr>
+<td>R7, R8</td>
+<td style="text-align: right;">2</td>
+<td>Weight-command input pull-down resistor</td>
+<td>Stackpole Electronics Inc</td>
+<td>RNMF14FTC100K</td>
+<td>100 kΩ, ±1%, 1/4 W, THT</td>
+</tr>
+<tr>
 <td>C1</td>
 <td style="text-align: right;">1</td>
 <td>LM7805 input capacitor</td>
@@ -1088,11 +1116,136 @@ team controller.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="team-interface">Team Interface</h2>
+<p>The Liquid Amount Sensing subsystem communicates with the main controller
+through J1 using four direct digital signals.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><strong>J1 Pin</strong></th>
+<th><strong>Signal</strong></th>
+<th><strong>PIC Pin</strong></th>
+<th><strong>Direction</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>C1</td>
+<td>RA3</td>
+<td>Input</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>C0</td>
+<td>RA4</td>
+<td>Input</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>S1</td>
+<td>RE2</td>
+<td>Output</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>S0</td>
+<td>RC7</td>
+<td>Output</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>NC</td>
+<td>—</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>NC</td>
+<td>—</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>NC</td>
+<td>—</td>
+<td>Unused</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>GND</td>
+<td>GND</td>
+<td>Common ground</td>
+</tr>
+</tbody>
+</table>
+<p>C1 and C0 form the two-bit weight command input. R7 and R8 provide
+100 kΩ pull-down resistance on these inputs so that both command lines
+default LOW when no command is being driven.</p>
+<p>The weight command uses the following encoding:</p>
+<table>
+<thead>
+<tr>
+<th><strong>C1 C0</strong></th>
+<th><strong>Command</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Preset 1</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Preset 2</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Preset 3</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Preset 4</td>
+</tr>
+</tbody>
+</table>
+<p>S1 and S0 form the two-bit weight status output from the Liquid Amount
+Sensing subsystem to the main controller.</p>
+<p>The weight status uses the following encoding:</p>
+<table>
+<thead>
+<tr>
+<th><strong>S1 S0</strong></th>
+<th><strong>Status</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Not ready</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Below target</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Target reached</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<p>The S1 and S0 outputs are initialized LOW by the subsystem software.</p>
 <h2 id="notes">Notes</h2>
 <p>The NAU7802KGI is mounted directly on the subsystem PCB rather than using
-a separate ADC daughter board. The team interface uses J1 Pin 1 as TEAM_IN,
-J1 Pin 2 as TEAM_OUT, and J1 Pin 8 as the common ground. Pins 3 through 7
-of J1 are unused by this subsystem.</p>
+a separate ADC daughter board.</p>
+<p>The team interface does not carry subsystem power. J1 Pins 1 through 4
+are used for the C1, C0, S1, and S0 direct digital signals, Pins 5 through
+7 are unused, and Pin 8 provides the common ground connection between the
+Liquid Amount Sensing subsystem and the main controller.</p>
 
 
 
