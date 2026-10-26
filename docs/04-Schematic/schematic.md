@@ -8,10 +8,9 @@ title: Schematic
 
 The Liquid Amount Sensing subsystem measures the amount of liquid dispensed by the Fill-A-Bot using a 1 kg load cell. The load cell produces a small differential analog voltage that is filtered and measured by a Nuvoton NAU7802KGI 24-bit sigma-delta ADC with a programmable gain amplifier.
 
-A Microchip PIC18F57Q43 Curiosity Nano processes the digital weight measurement, controls the tare/zero and status functions, and communicates with the Fill-A-Bot main controller using direct digital TEAM_IN and TEAM_OUT signals.
+A Microchip PIC18F57Q43 Curiosity Nano processes the digital weight measurement, controls the tare/zero and status functions, and communicates with the Fill-A-Bot main controller using a four-wire direct digital interface consisting of two weight-command inputs, C1 and C0, and two weight-status outputs, S1 and S0.
 
 The subsystem also contains its own 5 V power regulation, input protection, load-cell interface, ADC support circuitry, team connector, GPIO expansion header, status LED, tare/zero pushbutton, and test points.
-
 
 ## Final Schematic
 
@@ -22,7 +21,6 @@ The subsystem also contains its own 5 V power regulation, input protection, load
 A PDF version of the schematic is also available:
 
 [Download the Liquid Amount Sensing Schematic PDF](liquid-amount-sensing-schematic.pdf)
-
 
 ## Power Regulation
 
@@ -39,7 +37,6 @@ The regulator support components include:
 - **JP2** for connecting the locally regulated +5V_LOCAL rail to +5V_BOARD
 
 The +5V_BOARD rail supplies the load cell, NAU7802 circuitry, Curiosity Nano, and supporting components.
-
 
 ## Load Cell Interface
 
@@ -60,7 +57,6 @@ E+ is connected to +5V_BOARD and E- is connected to ground.
 
 A+ and A- carry the small differential measurement signal produced by the load cell.
 
-
 ## Analog Input Filtering
 
 The differential load-cell output is filtered before entering the NAU7802.
@@ -74,7 +70,6 @@ The input network consists of:
 R1 and R2 are placed in series with the two differential load-cell signal lines. C3 is connected across the differential input.
 
 This network helps reduce high-frequency noise before the signal is amplified and converted by the NAU7802.
-
 
 ## NAU7802 Load-Cell ADC
 
@@ -99,7 +94,6 @@ C5 and C6 provide local supply filtering and decoupling for the ADC circuitry.
 
 R5 and R6 provide pull-up resistance for the NAU7802 digital interface.
 
-
 ## NAU7802 to Microcontroller Interface
 
 The NAU7802 communicates locally with the PIC18F57Q43 Curiosity Nano using SDIO, SCLK, and DRDY.
@@ -114,28 +108,50 @@ The PIC uses these signals to configure the NAU7802 and retrieve converted load-
 
 This interface is local to the Liquid Amount Sensing PCB and is separate from the direct digital communication used between the Fill-A-Bot subsystem boards.
 
-
 ## Team Communication
 
 J1 is the 8-position team connector used to interface the Liquid Amount Sensing subsystem with the Fill-A-Bot main controller.
 
-The subsystem uses direct digital HIGH/LOW communication rather than UART or I2C between boards.
+The subsystem uses four direct digital HIGH/LOW signals rather than UART or I2C between boards. Two signals, C1 and C0, are command inputs from the main controller. Two signals, S1 and S0, are status outputs from the Liquid Amount Sensing subsystem.
 
-| **J1 Pin** | **Signal** | **PIC Pin** | **Purpose** |
-| --- | --- | --- | --- |
-| 1 | TEAM_IN | RA3 | Receives a digital state from the main controller |
-| 2 | TEAM_OUT | RA4 | Sends a digital state to the main controller |
-| 3 | NC | — | Not connected |
-| 4 | NC | — | Not connected |
-| 5 | NC | — | Not connected |
-| 6 | NC | — | Not connected |
-| 7 | NC | — | Not connected |
-| 8 | GND | GND | Common ground between subsystem boards |
+| **J1 Pin** | **Signal** | **PIC Pin** | **Direction** | **Purpose** |
+| --- | --- | --- | --- | --- |
+| 1 | C1 | RA3 | Input | Weight-command bit 1 |
+| 2 | C0 | RA4 | Input | Weight-command bit 0 |
+| 3 | S1 | RE2 | Output | Weight-status bit 1 |
+| 4 | S0 | RC7 | Output | Weight-status bit 0 |
+| 5 | NC | — | — | Not connected |
+| 6 | NC | — | — | Not connected |
+| 7 | NC | — | — | Not connected |
+| 8 | GND | GND | — | Common ground between subsystem boards |
 
-TEAM_IN allows the main controller to provide a control state to the Liquid Amount Sensing board.
+C1 and C0 form the two-bit weight-command input.
 
-TEAM_OUT allows the Liquid Amount Sensing board to report a status condition to the main controller, such as indicating that the desired weight has been reached.
+R7 and R8 are 100 kΩ pull-down resistors connected to the C1 and C0 command inputs. These resistors hold the command inputs LOW when the lines are not actively driven by the main controller.
 
+The weight-command encoding is:
+
+| **C1 C0** | **Command** |
+| --- | --- |
+| 00 | Preset 1 |
+| 01 | Preset 2 |
+| 10 | Preset 3 |
+| 11 | Preset 4 |
+
+S1 and S0 form the two-bit weight-status output from the Liquid Amount Sensing subsystem.
+
+The weight-status encoding is:
+
+| **S1 S0** | **Status** |
+| --- | --- |
+| 00 | Not ready |
+| 01 | Below target |
+| 10 | Target reached |
+| 11 | Error |
+
+The S1 and S0 outputs will be initialized LOW by the subsystem software.
+
+The team connector does not distribute subsystem power. Pins 1 through 4 carry the four digital communication signals, Pins 5 through 7 are unused, and Pin 8 provides the common ground connection.
 
 ## Tare / Zero Circuit
 
@@ -155,7 +171,6 @@ When SW1 is pressed, RA0 is pulled to ground and becomes LOW.
 
 The software can detect this state and store the current load-cell measurement as the zero reference. This allows the weight of the empty container to be removed from subsequent liquid measurements.
 
-
 ## Status LED
 
 LED1 is a green status/debug LED controlled by PIC pin RC1.
@@ -169,13 +184,11 @@ When RC1 is driven HIGH, current flows through R3 and LED1 to ground, turning th
 
 The LED can be used by software to indicate subsystem status, measurement activity, tare completion, or debugging information.
 
-
 ## Curiosity Nano Supply Filtering
 
 C8 is a 0.1 µF bypass capacitor connected to the Curiosity Nano supply.
 
 The capacitor helps reduce power-supply noise near the microcontroller.
-
 
 ## GPIO Expansion
 
@@ -192,24 +205,30 @@ The header provides:
 
 These connections provide access to additional PIC18F57Q43 I/O if future expansion or additional testing is required.
 
-
 ## Test Points
 
 Five test points are included in the design to provide access to important signals during testing and debugging.
 
 The test points provide convenient locations for measuring power, ground, ADC-related signals, and DRDY without modifying the normal subsystem wiring.
 
-
 ## Design Summary
 
 The Liquid Amount Sensing subsystem converts the mechanical force applied to the 1 kg load cell into a digital weight measurement.
 
-The overall signal path is:
+The measurement signal path is:
 
-**Load Cell → Analog Input Filter → NAU7802 24-bit ADC/PGA → PIC18F57Q43 → TEAM_OUT**
+**Load Cell → Analog Input Filter → NAU7802 24-bit ADC/PGA → PIC18F57Q43**
+
+The weight-command path is:
+
+**Main Controller → C1/C0 → RA3/RA4 → PIC18F57Q43**
+
+The weight-status path is:
+
+**PIC18F57Q43 → RE2/RC7 → S1/S0 → Main Controller**
 
 The power path is:
 
 **9–12 V Input → 500 mA Fuse → LM7805CT → +5V_LOCAL → JP2 → +5V_BOARD**
 
-The resulting design provides the Fill-A-Bot with a dedicated subsystem for measuring liquid weight, zeroing the container weight, monitoring fill progress, and reporting status to the main controller.
+The resulting design provides the Fill-A-Bot with a dedicated subsystem for measuring liquid weight, selecting one of four commanded weight presets, zeroing the container weight, monitoring fill progress, and reporting the current weight status to the main controller.
