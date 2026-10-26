@@ -80,11 +80,45 @@ Sensing subsystem.
 | NAU7802KGI | SDIO | PIC18F57Q43 RB2 | Bidirectional digital ADC data |
 | NAU7802KGI | SCLK | PIC18F57Q43 RB1 | Digital clock from PIC to ADC |
 | NAU7802KGI | DRDY | PIC18F57Q43 RC0 | Indicates new ADC conversion is ready |
-| PIC18F57Q43 | RA3 | J1 Pin 1 - TEAM_IN | Direct HIGH/LOW input from team controller |
-| PIC18F57Q43 | RA4 | J1 Pin 2 - TEAM_OUT | Direct HIGH/LOW output to team controller |
+| PIC18F57Q43 | RA3 | J1 Pin 1 - C1 | Weight-command bit 1 input |
+| PIC18F57Q43 | RA4 | J1 Pin 2 - C0 | Weight-command bit 0 input |
+| PIC18F57Q43 | RE2 | J1 Pin 3 - S1 | Weight-status bit 1 output |
+| PIC18F57Q43 | RC7 | J1 Pin 4 - S0 | Weight-status bit 0 output |
 | PIC18F57Q43 | RA0 | SW1 TARE/ZERO | Tare/zero pushbutton input |
 | PIC18F57Q43 | RC1 | R3 → LED1 | Status LED output |
-| Team Connector J1 | Pin 1 | TEAM_IN | Direct digital input |
-| Team Connector J1 | Pin 2 | TEAM_OUT | Direct digital output |
-| Team Connector J1 | Pins 3-7 | NC | Unused |
+| Team Connector J1 | Pin 1 | C1 | Weight-command bit 1 from main controller |
+| Team Connector J1 | Pin 2 | C0 | Weight-command bit 0 from main controller |
+| Team Connector J1 | Pin 3 | S1 | Weight-status bit 1 to main controller |
+| Team Connector J1 | Pin 4 | S0 | Weight-status bit 0 to main controller |
+| Team Connector J1 | Pins 5-7 | NC | Unused |
 | Team Connector J1 | Pin 8 | GND | Common ground between team subsystems |
+| R7 | 100 kΩ | C1 → GND | Pull-down resistor for C1 command input |
+| R8 | 100 kΩ | C0 → GND | Pull-down resistor for C0 command input |
+
+## Team Interface
+
+The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using a four-wire direct digital interface.
+
+C1 and C0 are two command inputs used to select one of four weight presets.
+
+| **C1 C0** | **Command** |
+| --- | --- |
+| 00 | Preset 1 |
+| 01 | Preset 2 |
+| 10 | Preset 3 |
+| 11 | Preset 4 |
+
+R7 and R8 are 100 kΩ pull-down resistors that hold C1 and C0 LOW when the command lines are not actively driven by the main controller.
+
+S1 and S0 are two status outputs used to report the current state of the Liquid Amount Sensing subsystem.
+
+| **S1 S0** | **Status** |
+| --- | --- |
+| 00 | Not ready |
+| 01 | Below target |
+| 10 | Target reached |
+| 11 | Error |
+
+The S1 and S0 outputs will be initialized LOW by the subsystem software.
+
+J1 Pins 5 through 7 are unused, and Pin 8 provides the common ground connection between the Liquid Amount Sensing subsystem and the main controller.
