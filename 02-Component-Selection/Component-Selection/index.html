@@ -578,6 +578,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#team-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Interface
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -841,6 +850,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#team-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Team Interface
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1021,14 +1039,26 @@ Sensing subsystem.</p>
 <tr>
 <td>PIC18F57Q43</td>
 <td>RA3</td>
-<td>J1 Pin 1 - TEAM_IN</td>
-<td>Direct HIGH/LOW input from team controller</td>
+<td>J1 Pin 1 - C1</td>
+<td>Weight-command bit 1 input</td>
 </tr>
 <tr>
 <td>PIC18F57Q43</td>
 <td>RA4</td>
-<td>J1 Pin 2 - TEAM_OUT</td>
-<td>Direct HIGH/LOW output to team controller</td>
+<td>J1 Pin 2 - C0</td>
+<td>Weight-command bit 0 input</td>
+</tr>
+<tr>
+<td>PIC18F57Q43</td>
+<td>RE2</td>
+<td>J1 Pin 3 - S1</td>
+<td>Weight-status bit 1 output</td>
+</tr>
+<tr>
+<td>PIC18F57Q43</td>
+<td>RC7</td>
+<td>J1 Pin 4 - S0</td>
+<td>Weight-status bit 0 output</td>
 </tr>
 <tr>
 <td>PIC18F57Q43</td>
@@ -1045,18 +1075,30 @@ Sensing subsystem.</p>
 <tr>
 <td>Team Connector J1</td>
 <td>Pin 1</td>
-<td>TEAM_IN</td>
-<td>Direct digital input</td>
+<td>C1</td>
+<td>Weight-command bit 1 from main controller</td>
 </tr>
 <tr>
 <td>Team Connector J1</td>
 <td>Pin 2</td>
-<td>TEAM_OUT</td>
-<td>Direct digital output</td>
+<td>C0</td>
+<td>Weight-command bit 0 from main controller</td>
 </tr>
 <tr>
 <td>Team Connector J1</td>
-<td>Pins 3-7</td>
+<td>Pin 3</td>
+<td>S1</td>
+<td>Weight-status bit 1 to main controller</td>
+</tr>
+<tr>
+<td>Team Connector J1</td>
+<td>Pin 4</td>
+<td>S0</td>
+<td>Weight-status bit 0 to main controller</td>
+</tr>
+<tr>
+<td>Team Connector J1</td>
+<td>Pins 5-7</td>
 <td>NC</td>
 <td>Unused</td>
 </tr>
@@ -1066,8 +1108,79 @@ Sensing subsystem.</p>
 <td>GND</td>
 <td>Common ground between team subsystems</td>
 </tr>
+<tr>
+<td>R7</td>
+<td>100 kΩ</td>
+<td>C1 → GND</td>
+<td>Pull-down resistor for C1 command input</td>
+</tr>
+<tr>
+<td>R8</td>
+<td>100 kΩ</td>
+<td>C0 → GND</td>
+<td>Pull-down resistor for C0 command input</td>
+</tr>
 </tbody>
 </table>
+<h2 id="team-interface">Team Interface</h2>
+<p>The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using a four-wire direct digital interface.</p>
+<p>C1 and C0 are two command inputs used to select one of four weight presets.</p>
+<table>
+<thead>
+<tr>
+<th><strong>C1 C0</strong></th>
+<th><strong>Command</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Preset 1</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Preset 2</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Preset 3</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Preset 4</td>
+</tr>
+</tbody>
+</table>
+<p>R7 and R8 are 100 kΩ pull-down resistors that hold C1 and C0 LOW when the command lines are not actively driven by the main controller.</p>
+<p>S1 and S0 are two status outputs used to report the current state of the Liquid Amount Sensing subsystem.</p>
+<table>
+<thead>
+<tr>
+<th><strong>S1 S0</strong></th>
+<th><strong>Status</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Not ready</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Below target</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Target reached</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<p>The S1 and S0 outputs will be initialized LOW by the subsystem software.</p>
+<p>J1 Pins 5 through 7 are unused, and Pin 8 provides the common ground connection between the Liquid Amount Sensing subsystem and the main controller.</p>
 
 
 
