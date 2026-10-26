@@ -9,9 +9,12 @@ title: Bill of Materials
 The following Bill of Materials lists the components used in the
 Fill-A-Bot Liquid Amount Sensing subsystem. The subsystem uses a 1 kg
 load cell and NAU7802KGI 24-bit ADC to measure liquid weight, a
-PIC18F57Q43 Curiosity Nano for processing and control, and direct
-digital TEAM_IN and TEAM_OUT signals for communication with the
-team controller.
+PIC18F57Q43 Curiosity Nano for processing and control, and a four-wire
+direct digital interface for communication with the main controller.
+
+The team interface uses two command inputs, C1 and C0, to select one of
+four weight presets and two status outputs, S1 and S0, to report the
+current state of the Liquid Amount Sensing subsystem.
 
 ## Bill of Materials
 
@@ -38,6 +41,7 @@ team controller.
 | R3 | 1 | LED current-limiting resistor | YAGEO | MFR-25FTE52-1K2 | 1.2 kΩ, ±1%, 1/4 W |
 | R4 | 1 | Button pull-up resistor | YAGEO | MFR-25FTF52-10K | 10 kΩ, ±1%, 1/4 W |
 | R5, R6 | 2 | NAU7802 digital-interface pull-up resistor | YAGEO | MFR-25FRF52-4K7 | 4.7 kΩ, ±1%, 1/4 W, THT |
+| R7, R8 | 2 | Weight-command input pull-down resistor | Stackpole Electronics Inc | RNMF14FTC100K | 100 kΩ, ±1%, 1/4 W, THT |
 | C1 | 1 | LM7805 input capacitor | TDK | FA24X8R1E334KNU06 | 0.33 µF, 25 V, ceramic THT |
 | C2 | 1 | LM7805 output capacitor | TDK | FA28X8R1E104KNU06 | 0.1 µF, 25 V, ceramic THT |
 | C3, C4 | 2 | ADC filter / VBG capacitor | KEMET | C320C104K3R5TA | 0.1 µF, 25 V, X7R, THT |
@@ -45,9 +49,55 @@ team controller.
 | C7 | 1 | Button debounce capacitor | TDK | FG18X7R1E105KRT06 | 1 µF, 25 V, X7R, THT |
 | C8 | 1 | Curiosity Nano bypass capacitor | KEMET | C320C104K3R5TA | 0.1 µF, 25 V, X7R, THT |
 
+## Team Interface
+
+The Liquid Amount Sensing subsystem communicates with the main controller
+through J1 using four direct digital signals.
+
+| **J1 Pin** | **Signal** | **PIC Pin** | **Direction** |
+| ---: | --- | --- | --- |
+| 1 | C1 | RA3 | Input |
+| 2 | C0 | RA4 | Input |
+| 3 | S1 | RE2 | Output |
+| 4 | S0 | RC7 | Output |
+| 5 | NC | — | Unused |
+| 6 | NC | — | Unused |
+| 7 | NC | — | Unused |
+| 8 | GND | GND | Common ground |
+
+C1 and C0 form the two-bit weight command input. R7 and R8 provide
+100 kΩ pull-down resistance on these inputs so that both command lines
+default LOW when no command is being driven.
+
+The weight command uses the following encoding:
+
+| **C1 C0** | **Command** |
+| --- | --- |
+| 00 | Preset 1 |
+| 01 | Preset 2 |
+| 10 | Preset 3 |
+| 11 | Preset 4 |
+
+S1 and S0 form the two-bit weight status output from the Liquid Amount
+Sensing subsystem to the main controller.
+
+The weight status uses the following encoding:
+
+| **S1 S0** | **Status** |
+| --- | --- |
+| 00 | Not ready |
+| 01 | Below target |
+| 10 | Target reached |
+| 11 | Error |
+
+The S1 and S0 outputs are initialized LOW by the subsystem software.
+
 ## Notes
 
 The NAU7802KGI is mounted directly on the subsystem PCB rather than using
-a separate ADC daughter board. The team interface uses J1 Pin 1 as TEAM_IN,
-J1 Pin 2 as TEAM_OUT, and J1 Pin 8 as the common ground. Pins 3 through 7
-of J1 are unused by this subsystem.
+a separate ADC daughter board.
+
+The team interface does not carry subsystem power. J1 Pins 1 through 4
+are used for the C1, C0, S1, and S0 direct digital signals, Pins 5 through
+7 are unused, and Pin 8 provides the common ground connection between the
+Liquid Amount Sensing subsystem and the main controller.
