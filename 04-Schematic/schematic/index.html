@@ -1065,7 +1065,7 @@
 <h1 id="schematic">Schematic</h1>
 <h2 id="overview">Overview</h2>
 <p>The Liquid Amount Sensing subsystem measures the amount of liquid dispensed by the Fill-A-Bot using a 1 kg load cell. The load cell produces a small differential analog voltage that is filtered and measured by a Nuvoton NAU7802KGI 24-bit sigma-delta ADC with a programmable gain amplifier.</p>
-<p>A Microchip PIC18F57Q43 Curiosity Nano processes the digital weight measurement, controls the tare/zero and status functions, and communicates with the Fill-A-Bot main controller using direct digital TEAM_IN and TEAM_OUT signals.</p>
+<p>A Microchip PIC18F57Q43 Curiosity Nano processes the digital weight measurement, controls the tare/zero and status functions, and communicates with the Fill-A-Bot main controller using a four-wire direct digital interface consisting of two weight-command inputs, C1 and C0, and two weight-status outputs, S1 and S0.</p>
 <p>The subsystem also contains its own 5 V power regulation, input protection, load-cell interface, ADC support circuitry, team connector, GPIO expansion header, status LED, tare/zero pushbutton, and test points.</p>
 <h2 id="final-schematic">Final Schematic</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../liquid-amount-sensing-schematic.png" data-desc-position="bottom"><img alt="Fill-A-Bot Liquid Amount Sensing Schematic" src="../liquid-amount-sensing-schematic.png"></a></p>
@@ -1175,44 +1175,50 @@
 <p>This interface is local to the Liquid Amount Sensing PCB and is separate from the direct digital communication used between the Fill-A-Bot subsystem boards.</p>
 <h2 id="team-communication">Team Communication</h2>
 <p>J1 is the 8-position team connector used to interface the Liquid Amount Sensing subsystem with the Fill-A-Bot main controller.</p>
-<p>The subsystem uses direct digital HIGH/LOW communication rather than UART or I2C between boards.</p>
+<p>The subsystem uses four direct digital HIGH/LOW signals rather than UART or I2C between boards. Two signals, C1 and C0, are command inputs from the main controller. Two signals, S1 and S0, are status outputs from the Liquid Amount Sensing subsystem.</p>
 <table>
 <thead>
 <tr>
 <th><strong>J1 Pin</strong></th>
 <th><strong>Signal</strong></th>
 <th><strong>PIC Pin</strong></th>
+<th><strong>Direction</strong></th>
 <th><strong>Purpose</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
-<td>TEAM_IN</td>
+<td>C1</td>
 <td>RA3</td>
-<td>Receives a digital state from the main controller</td>
+<td>Input</td>
+<td>Weight-command bit 1</td>
 </tr>
 <tr>
 <td>2</td>
-<td>TEAM_OUT</td>
+<td>C0</td>
 <td>RA4</td>
-<td>Sends a digital state to the main controller</td>
+<td>Input</td>
+<td>Weight-command bit 0</td>
 </tr>
 <tr>
 <td>3</td>
-<td>NC</td>
-<td>—</td>
-<td>Not connected</td>
+<td>S1</td>
+<td>RE2</td>
+<td>Output</td>
+<td>Weight-status bit 1</td>
 </tr>
 <tr>
 <td>4</td>
-<td>NC</td>
-<td>—</td>
-<td>Not connected</td>
+<td>S0</td>
+<td>RC7</td>
+<td>Output</td>
+<td>Weight-status bit 0</td>
 </tr>
 <tr>
 <td>5</td>
 <td>NC</td>
+<td>—</td>
 <td>—</td>
 <td>Not connected</td>
 </tr>
@@ -1220,11 +1226,13 @@
 <td>6</td>
 <td>NC</td>
 <td>—</td>
+<td>—</td>
 <td>Not connected</td>
 </tr>
 <tr>
 <td>7</td>
 <td>NC</td>
+<td>—</td>
 <td>—</td>
 <td>Not connected</td>
 </tr>
@@ -1232,12 +1240,70 @@
 <td>8</td>
 <td>GND</td>
 <td>GND</td>
+<td>—</td>
 <td>Common ground between subsystem boards</td>
 </tr>
 </tbody>
 </table>
-<p>TEAM_IN allows the main controller to provide a control state to the Liquid Amount Sensing board.</p>
-<p>TEAM_OUT allows the Liquid Amount Sensing board to report a status condition to the main controller, such as indicating that the desired weight has been reached.</p>
+<p>C1 and C0 form the two-bit weight-command input.</p>
+<p>R7 and R8 are 100 kΩ pull-down resistors connected to the C1 and C0 command inputs. These resistors hold the command inputs LOW when the lines are not actively driven by the main controller.</p>
+<p>The weight-command encoding is:</p>
+<table>
+<thead>
+<tr>
+<th><strong>C1 C0</strong></th>
+<th><strong>Command</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Preset 1</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Preset 2</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Preset 3</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Preset 4</td>
+</tr>
+</tbody>
+</table>
+<p>S1 and S0 form the two-bit weight-status output from the Liquid Amount Sensing subsystem.</p>
+<p>The weight-status encoding is:</p>
+<table>
+<thead>
+<tr>
+<th><strong>S1 S0</strong></th>
+<th><strong>Status</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>Not ready</td>
+</tr>
+<tr>
+<td>01</td>
+<td>Below target</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Target reached</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<p>The S1 and S0 outputs will be initialized LOW by the subsystem software.</p>
+<p>The team connector does not distribute subsystem power. Pins 1 through 4 carry the four digital communication signals, Pins 5 through 7 are unused, and Pin 8 provides the common ground connection.</p>
 <h2 id="tare-zero-circuit">Tare / Zero Circuit</h2>
 <p>SW1 is a momentary pushbutton used to tare or zero the scale.</p>
 <p>The tare/zero circuit is connected to PIC pin RA0.</p>
@@ -1279,11 +1345,15 @@
 <p>The test points provide convenient locations for measuring power, ground, ADC-related signals, and DRDY without modifying the normal subsystem wiring.</p>
 <h2 id="design-summary">Design Summary</h2>
 <p>The Liquid Amount Sensing subsystem converts the mechanical force applied to the 1 kg load cell into a digital weight measurement.</p>
-<p>The overall signal path is:</p>
-<p><strong>Load Cell → Analog Input Filter → NAU7802 24-bit ADC/PGA → PIC18F57Q43 → TEAM_OUT</strong></p>
+<p>The measurement signal path is:</p>
+<p><strong>Load Cell → Analog Input Filter → NAU7802 24-bit ADC/PGA → PIC18F57Q43</strong></p>
+<p>The weight-command path is:</p>
+<p><strong>Main Controller → C1/C0 → RA3/RA4 → PIC18F57Q43</strong></p>
+<p>The weight-status path is:</p>
+<p><strong>PIC18F57Q43 → RE2/RC7 → S1/S0 → Main Controller</strong></p>
 <p>The power path is:</p>
 <p><strong>9–12 V Input → 500 mA Fuse → LM7805CT → +5V_LOCAL → JP2 → +5V_BOARD</strong></p>
-<p>The resulting design provides the Fill-A-Bot with a dedicated subsystem for measuring liquid weight, zeroing the container weight, monitoring fill progress, and reporting status to the main controller.</p>
+<p>The resulting design provides the Fill-A-Bot with a dedicated subsystem for measuring liquid weight, selecting one of four commanded weight presets, zeroing the container weight, monitoring fill progress, and reporting the current weight status to the main controller.</p>
 
 
 
