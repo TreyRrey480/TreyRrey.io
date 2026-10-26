@@ -44,6 +44,9 @@ The load cell connects to the sensor PCB through an On Shore Technology OSTVN04A
 
 The A+ and A- differential signals are routed to the NAU7802KGI through the analog input circuitry. Two 47 Ω series resistors and a 0.1 µF capacitor help filter noise from the low-level differential signal before analog-to-digital conversion.
 
+The A+ and A- connections form a differential analog signal pair between the
+load cell and the NAU7802. These two signal connections carry the low-level
+millivolt output produced by the load cell.
 
 ## NAU7802 ADC Interface
 
