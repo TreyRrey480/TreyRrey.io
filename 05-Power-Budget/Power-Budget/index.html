@@ -987,27 +987,33 @@
 <h1 id="power-budget">Power Budget</h1>
 <h2 id="overview">Overview</h2>
 <p>A power budget was created for the Fill-A-Bot Liquid Amount Sensing subsystem to estimate the current and power required by the components operating from the regulated 5 V supply.</p>
-<p>The analysis includes the PIC18F57Q43 Curiosity Nano, NAU7802KGI load-cell ADC, 1 kg load cell, status LED, tare/zero circuit, digital pull-up resistors, and Curiosity Nano external-power overhead.</p>
+<p>The analysis includes the PIC18F57Q43 Curiosity Nano, NAU7802KGI load-cell ADC, 1 kg load cell, status LED, tare/zero circuit, NAU7802 digital pull-up resistors, C1/C0 command pull-down resistors, and Curiosity Nano external-power overhead.</p>
+<p>The C1 and C0 weight-command inputs each use a 100 kΩ pull-down resistor to ensure that the command inputs default LOW when the main controller is not actively driving the lines.</p>
 <p>A 25% design margin was added to the estimated operating current to provide additional capacity for component variation and operating conditions. The resulting design requirement was compared with the 500 mA fuse used to protect the subsystem.</p>
 <p>The LM7805CT linear regulator was also evaluated at both the minimum 9 V input and maximum 12 V input to estimate regulator power dissipation.</p>
 <h2 id="power-budget_1">Power Budget</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../liquid-amount-sensing-power-budget.png" data-desc-position="bottom"><img alt="Liquid Amount Sensing Power Budget" src="../liquid-amount-sensing-power-budget.png"></a></p>
 <p><strong>Figure 1:</strong> Power budget for the Fill-A-Bot Liquid Amount Sensing subsystem.</p>
 <h2 id="current-and-power-analysis">Current and Power Analysis</h2>
-<p>The estimated operating current of the subsystem is <strong>71.79 mA</strong> at 5 V.</p>
+<p>The estimated operating current of the subsystem is <strong>71.89 mA</strong> at 5 V.</p>
 <p>This corresponds to an estimated 5 V load power of:</p>
 <p><strong>P = V × I</strong></p>
-<p><strong>P = 5 V × 0.07179 A = 0.35895 W</strong></p>
-<p>Therefore, the estimated subsystem load is approximately <strong>358.95 mW</strong>.</p>
+<p><strong>P = 5 V × 0.07189 A = 0.35945 W</strong></p>
+<p>Therefore, the estimated subsystem load is approximately <strong>359.45 mW</strong>.</p>
+<p>The two 100 kΩ command pull-down resistors, R7 and R8, contribute a worst-case combined current of:</p>
+<p><strong>I = 2 × (5 V / 100 kΩ)</strong></p>
+<p><strong>I = 0.10 mA</strong></p>
+<p>This corresponds to a combined power consumption of:</p>
+<p><strong>P = 5 V × 0.00010 A = 0.50 mW</strong></p>
 <p>A 25% design margin was added to the estimated operating current:</p>
-<p><strong>Design Margin = 71.79 mA × 0.25 = 17.95 mA</strong></p>
+<p><strong>Design Margin = 71.89 mA × 0.25 = 17.97 mA</strong></p>
 <p>The resulting design current requirement is:</p>
-<p><strong>Design Requirement = 71.79 mA + 17.95 mA = 89.74 mA</strong></p>
+<p><strong>Design Requirement = 71.89 mA + 17.97 mA = 89.86 mA</strong></p>
 <h2 id="fuse-capacity">Fuse Capacity</h2>
 <p>The subsystem uses a <strong>500 mA fuse</strong> on the power input.</p>
 <p>The remaining current margin after including the 25% design margin is:</p>
-<p><strong>Remaining Margin = 500 mA - 89.74 mA</strong></p>
-<p><strong>Remaining Margin = 410.26 mA</strong></p>
+<p><strong>Remaining Margin = 500 mA - 89.86 mA</strong></p>
+<p><strong>Remaining Margin = 410.14 mA</strong></p>
 <p>The estimated design requirement therefore remains well below the 500 mA fuse rating.</p>
 <h2 id="lm7805-thermal-analysis">LM7805 Thermal Analysis</h2>
 <p>Because the LM7805CT is a linear voltage regulator, the voltage difference between its input and 5 V output is dissipated as heat.</p>
@@ -1024,8 +1030,9 @@
 <p><strong>P_D = 0.63 W</strong></p>
 <p>The 12 V input condition produces the greatest estimated regulator dissipation and therefore represents the worst-case thermal condition evaluated in the power budget.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>The Liquid Amount Sensing subsystem has an estimated operating current of <strong>71.79 mA</strong>. After applying a 25% design margin, the required current increases to approximately <strong>89.74 mA</strong>.</p>
-<p>This is substantially below the <strong>500 mA fuse limit</strong>, leaving approximately <strong>410.26 mA of current margin</strong>.</p>
+<p>The Liquid Amount Sensing subsystem has an estimated operating current of <strong>71.89 mA</strong> and an estimated load power of <strong>359.45 mW</strong> at 5 V.</p>
+<p>After applying a 25% design margin, the required current increases to approximately <strong>89.86 mA</strong>.</p>
+<p>This is substantially below the <strong>500 mA fuse limit</strong>, leaving approximately <strong>410.14 mA of current margin</strong>.</p>
 <p>The LM7805CT is expected to dissipate approximately <strong>0.36 W at a 9 V input</strong> and <strong>0.63 W at a 12 V input</strong> using the 90 mA design current. The 12 V input therefore represents the highest thermal load considered in this analysis.</p>
 <p>Based on the calculated current requirement, the selected power system provides sufficient electrical capacity for the Liquid Amount Sensing subsystem. The regulator thermal performance should also be verified during hardware testing, particularly when operating from the maximum 12 V input.</p>
 <h2 id="resources">Resources</h2>
