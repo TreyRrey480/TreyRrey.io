@@ -20,7 +20,11 @@ The subsystem also contains its own 5 V power regulation, input protection, load
 
 A PDF version of the schematic is also available:
 
-[Download the Liquid Amount Sensing Schematic PDF](liquid-amount-sensing-schematic.pdf)
+[Download the Liquid Amount Sensing Schematic PDF](liquid-amount-sensing-schematic.pdf) 
+
+The complete KiCad ECAD project used to create the individual schematic is also available as a ZIP archive. The archive includes the KiCad project, schematic, PCB file, project-specific symbol library, footprint library, and associated library tables required to open and edit the design.
+
+[Download the Liquid Amount Sensing ECAD Project](TReynolds_Liquid_Amount_Sensing_ECAD.zip)
 
 ## Power Regulation
 
