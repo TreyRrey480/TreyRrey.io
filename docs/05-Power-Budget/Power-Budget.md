@@ -80,6 +80,16 @@ At the maximum 12 V input:
 
 The 12 V input condition produces the greatest estimated regulator dissipation and therefore represents the worst-case thermal condition evaluated in the power budget.
 
+## Design Impact of the Power Budget
+
+The power budget was used to determine whether the selected power components could safely support the Liquid Amount Sensing subsystem under expected operating conditions.
+
+The calculated design requirement of approximately **89.74 mA**, including the 25% design margin, shows that the subsystem requires substantially less current than the **500 mA fuse rating**. This confirms that the selected fuse provides sufficient operating margin while still providing input protection for the subsystem.
+
+The analysis also showed that current capacity is not the primary limitation of the power design. Instead, the largest concern is the power dissipated by the **LM7805CT linear regulator** as the input voltage increases. At a 12 V input, the regulator is estimated to dissipate approximately **0.63 W**, compared with approximately **0.36 W** at a 9 V input.
+
+Based on these results, the subsystem power supply has sufficient current capacity, but regulator temperature should be monitored during hardware testing. Operating closer to the lower end of the 9–12 V input range will also reduce the power that must be dissipated by the LM7805CT.
+
 ## Conclusions
 
 The Liquid Amount Sensing subsystem has an estimated operating current of **71.79 mA** and an estimated load power of **358.95 mW** at 5 V.
