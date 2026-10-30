@@ -1064,7 +1064,7 @@
 
 <h1 id="schematic">Schematic</h1>
 <h2 id="overview">Overview</h2>
-<p>The Liquid Amount Sensing subsystem measures the amount of liquid dispensed by the Fill-A-Bot using a 1 kg load cell. The load cell produces a small differential analog voltage that is filtered and measured by a Nuvoton NAU7802KGI 24-bit sigma-delta ADC with a programmable gain amplifier.</p>
+<p>The Liquid Amount Sensing subsystem measures the amount of liquid dispensed by the Fill-A-Bot using an external 1 kg load cell. The load cell produces a small differential analog voltage that is filtered and measured by a Nuvoton NAU7802KGI 24-bit sigma-delta ADC with a programmable gain amplifier.</p>
 <p>A Microchip PIC18F57Q43 Curiosity Nano processes the digital weight measurement, controls the tare/zero and status functions, and communicates with the Fill-A-Bot main controller using a four-wire direct digital interface consisting of two weight-command inputs, C1 and C0, and two weight-status outputs, S1 and S0.</p>
 <p>The subsystem also contains its own 5 V power regulation, input protection, load-cell interface, ADC support circuitry, team connector, GPIO expansion header, status LED, tare/zero pushbutton, and test points.</p>
 <h2 id="final-schematic">Final Schematic</h2>
@@ -1074,18 +1074,20 @@
 <p><a href="../liquid-amount-sensing-schematic.pdf">Download the Liquid Amount Sensing Schematic PDF</a></p>
 <h2 id="power-regulation">Power Regulation</h2>
 <p>The subsystem accepts a 9–12 V DC input through J3, a Dinkle EK508V-02P 2-position screw-terminal connector.</p>
-<p>The incoming supply passes through a 500 mA fuse for protection before reaching the LM7805CT linear voltage regulator.</p>
+<p>The incoming supply passes through F1, a 500 mA fuse, before reaching the LM7805CT linear voltage regulator.</p>
 <p>The LM7805CT converts the 9–12 V input into a regulated 5 V supply.</p>
 <p>The regulator support components include:</p>
 <ul>
-<li><strong>C1 = 0.33 µF</strong> on the regulator input</li>
-<li><strong>C2 = 0.1 µF</strong> on the regulator output</li>
+<li><strong>C1 = 0.33 µF, 25 V</strong> on the regulator input</li>
+<li><strong>C2 = 0.1 µF, 25 V</strong> on the regulator output</li>
 <li><strong>JP2</strong> for connecting the locally regulated +5V_LOCAL rail to +5V_BOARD</li>
 </ul>
-<p>The +5V_BOARD rail supplies the load cell, NAU7802 circuitry, Curiosity Nano, and supporting components.</p>
+<p>The +5V_BOARD rail supplies the load-cell interface, NAU7802 circuitry, Curiosity Nano, and supporting components.</p>
+<p>The power path is:</p>
+<p><strong>9–12 V Input → 500 mA Fuse → LM7805CT → +5V_LOCAL → JP2 → +5V_BOARD</strong></p>
 <h2 id="load-cell-interface">Load Cell Interface</h2>
-<p>The subsystem uses a Soldered Electronics 555026 / 100382 1 kg load cell.</p>
-<p>The load cell connects to the PCB through J2, an On Shore Technology OSTVN04A150 4-position screw-terminal connector.</p>
+<p>The subsystem uses an external Soldered Electronics 555026 / 100382 1 kg load cell.</p>
+<p>The external load cell connects to the PCB through an On Shore Technology OSTVN04A150 4-position screw-terminal connector.</p>
 <p>The four load-cell connections are:</p>
 <table>
 <thead>
@@ -1100,7 +1102,7 @@
 <td>Positive bridge excitation</td>
 </tr>
 <tr>
-<td>E-</td>
+<td>E−</td>
 <td>Negative bridge excitation</td>
 </tr>
 <tr>
@@ -1108,25 +1110,25 @@
 <td>Positive differential measurement output</td>
 </tr>
 <tr>
-<td>A-</td>
+<td>A−</td>
 <td>Negative differential measurement output</td>
 </tr>
 </tbody>
 </table>
-<p>E+ is connected to +5V_BOARD and E- is connected to ground.</p>
-<p>A+ and A- carry the small differential measurement signal produced by the load cell.</p>
+<p>E+ is connected to +5V_BOARD and E− is connected to ground.</p>
+<p>A+ and A− carry the small differential measurement signal produced by the load cell.</p>
 <h2 id="analog-input-filtering">Analog Input Filtering</h2>
 <p>The differential load-cell output is filtered before entering the NAU7802.</p>
 <p>The input network consists of:</p>
 <ul>
-<li><strong>R1 = 47 Ω</strong></li>
-<li><strong>R2 = 47 Ω</strong></li>
-<li><strong>C3 = 0.1 µF</strong></li>
+<li><strong>R1 = 47 Ω, 0.25 W</strong></li>
+<li><strong>R2 = 47 Ω, 0.25 W</strong></li>
+<li><strong>C3 = 0.1 µF, 25 V</strong></li>
 </ul>
 <p>R1 and R2 are placed in series with the two differential load-cell signal lines. C3 is connected across the differential input.</p>
 <p>This network helps reduce high-frequency noise before the signal is amplified and converted by the NAU7802.</p>
 <h2 id="nau7802-load-cell-adc">NAU7802 Load-Cell ADC</h2>
-<p>U1 is a Nuvoton NAU7802KGI 24-bit sigma-delta analog-to-digital converter with a programmable gain amplifier.</p>
+<p>The Nuvoton NAU7802KGI is a 24-bit sigma-delta analog-to-digital converter with a programmable gain amplifier.</p>
 <p>The NAU7802 is used because the differential output from the load cell is very small and requires both amplification and high-resolution analog-to-digital conversion.</p>
 <p>The primary load-cell inputs are:</p>
 <ul>
@@ -1135,12 +1137,13 @@
 </ul>
 <p>Additional support circuitry includes:</p>
 <ul>
-<li><strong>C4 = 0.1 µF</strong> for the VBG/reference circuitry</li>
-<li><strong>C5 = 1 µF</strong></li>
-<li><strong>C6 = 1 µF</strong></li>
-<li><strong>R5 = 4.7 kΩ</strong></li>
-<li><strong>R6 = 4.7 kΩ</strong></li>
+<li><strong>C4 = 0.1 µF, 25 V</strong></li>
+<li><strong>C5 = 1 µF, 25 V</strong></li>
+<li><strong>C6 = 1 µF, 25 V</strong></li>
+<li><strong>R5 = 4.7 kΩ, 0.25 W</strong></li>
+<li><strong>R6 = 4.7 kΩ, 0.25 W</strong></li>
 </ul>
+<p>C4 provides filtering for the ADC reference circuitry.</p>
 <p>C5 and C6 provide local supply filtering and decoupling for the ADC circuitry.</p>
 <p>R5 and R6 provide pull-up resistance for the NAU7802 digital interface.</p>
 <h2 id="nau7802-to-microcontroller-interface">NAU7802 to Microcontroller Interface</h2>
@@ -1245,8 +1248,7 @@
 </tr>
 </tbody>
 </table>
-<p>C1 and C0 form the two-bit weight-command input.</p>
-<p>R7 and R8 are 100 kΩ pull-down resistors connected to the C1 and C0 command inputs. These resistors hold the command inputs LOW when the lines are not actively driven by the main controller.</p>
+<p>C1 and C0 form the two-bit weight-command input and connect directly to PIC pins RA3 and RA4.</p>
 <p>The weight-command encoding is:</p>
 <table>
 <thead>
@@ -1274,7 +1276,7 @@
 </tr>
 </tbody>
 </table>
-<p>S1 and S0 form the two-bit weight-status output from the Liquid Amount Sensing subsystem.</p>
+<p>S1 and S0 form the two-bit weight-status output from the Liquid Amount Sensing subsystem and are generated by PIC pins RE2 and RC7.</p>
 <p>The weight-status encoding is:</p>
 <table>
 <thead>
@@ -1310,8 +1312,8 @@
 <p>The circuit includes:</p>
 <ul>
 <li><strong>SW1 = Omron B3F-1020</strong></li>
-<li><strong>R4 = 10 kΩ pull-up resistor</strong></li>
-<li><strong>C7 = 1 µF debounce/filter capacitor</strong></li>
+<li><strong>R4 = 10 kΩ, 0.25 W pull-up resistor</strong></li>
+<li><strong>C7 = 1 µF, 25 V debounce/filter capacitor</strong></li>
 </ul>
 <p>When the button is not pressed, R4 holds RA0 HIGH.</p>
 <p>When SW1 is pressed, RA0 is pulled to ground and becomes LOW.</p>
@@ -1320,13 +1322,13 @@
 <p>LED1 is a green status/debug LED controlled by PIC pin RC1.</p>
 <p>The LED circuit consists of:</p>
 <ul>
-<li><strong>R3 = 1.2 kΩ current-limiting resistor</strong></li>
-<li><strong>LED1 = Kingbright WP7113LZGCK</strong></li>
+<li><strong>R3 = 1.2 kΩ, 0.25 W current-limiting resistor</strong></li>
+<li><strong>LED1 = Kingbright WP7113LZGCK green LED</strong></li>
 </ul>
 <p>When RC1 is driven HIGH, current flows through R3 and LED1 to ground, turning the LED on.</p>
 <p>The LED can be used by software to indicate subsystem status, measurement activity, tare completion, or debugging information.</p>
 <h2 id="curiosity-nano-supply-filtering">Curiosity Nano Supply Filtering</h2>
-<p>C8 is a 0.1 µF bypass capacitor connected to the Curiosity Nano supply.</p>
+<p>C8 is a <strong>0.1 µF, 25 V</strong> bypass capacitor connected to the Curiosity Nano supply.</p>
 <p>The capacitor helps reduce power-supply noise near the microcontroller.</p>
 <h2 id="gpio-expansion">GPIO Expansion</h2>
 <p>J4 is a 6-position GPIO expansion header.</p>
@@ -1344,9 +1346,9 @@
 <p>Five test points are included in the design to provide access to important signals during testing and debugging.</p>
 <p>The test points provide convenient locations for measuring power, ground, ADC-related signals, and DRDY without modifying the normal subsystem wiring.</p>
 <h2 id="design-summary">Design Summary</h2>
-<p>The Liquid Amount Sensing subsystem converts the mechanical force applied to the 1 kg load cell into a digital weight measurement.</p>
+<p>The Liquid Amount Sensing subsystem converts the mechanical force applied to the external 1 kg load cell into a digital weight measurement.</p>
 <p>The measurement signal path is:</p>
-<p><strong>Load Cell → Analog Input Filter → NAU7802 24-bit ADC/PGA → PIC18F57Q43</strong></p>
+<p><strong>External Load Cell → Load-Cell Connector → Analog Input Filter → NAU7802 24-bit ADC/PGA → PIC18F57Q43</strong></p>
 <p>The weight-command path is:</p>
 <p><strong>Main Controller → C1/C0 → RA3/RA4 → PIC18F57Q43</strong></p>
 <p>The weight-status path is:</p>
