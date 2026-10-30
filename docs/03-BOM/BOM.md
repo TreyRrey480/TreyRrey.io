@@ -19,7 +19,7 @@ The team interface uses two command inputs, C1 and C0, to select one of four wei
 | U1 | 1 | Load-cell ADC | Nuvoton Technology | NAU7802KGI | 24-bit sigma-delta ADC with PGA, 16-PDIP |
 | U2 | 1 | Microcontroller development board | Microchip Technology | PIC18F57Q43 Curiosity Nano | PIC18F57Q43 Curiosity Nano |
 | U3 | 1 | 5 V linear regulator | Texas Instruments | LM7805CT | Fixed 5 V, TO-220, THT |
-| LC1 | 1 | External load cell | Soldered Electronics | 555026 / 100382 | 1 kg, 5–10 V excitation, 2 ±0.1 mV/V |
+| LC1 | 1 | External load cell | Adafruit Industries | 4540 | 1 kgf (2 lb) load cell |
 | J1 | 1 | Team connector | Assmann | AWH 08G-0502-T | 8-position, 2×4, 2.54 mm, shrouded THT |
 | J2 | 1 | Load-cell connector | On Shore Technology | OSTVN04A150 | 4-position, 2.54 mm screw terminal, THT |
 | J3 | 1 | 9–12 V power input connector | Dinkle | EK508V-02P | 2-position, 5.08 mm screw terminal, THT |
