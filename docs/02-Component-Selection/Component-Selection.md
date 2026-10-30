@@ -20,9 +20,9 @@ The Liquid Amount Sensing subsystem measures the amount of liquid in the Fill-A-
 | ![](loadcell_adafruit_4540.png)<br>**Option 2**<br>Adafruit Industries 4540<br>1 kgf Load Cell<br>$3.95/each<br>[Link to product](https://www.digikey.com/en/products/detail/adafruit-industries-llc/4540/12323569) | \* 1 kg measurement range is appropriate for the project<br>\* Lowest-cost load cell of the three options<br>\* Compact load-cell design | \* Requires an external ADC/amplifier<br>\* Requires calibration before accurate measurements can be made<br>\* Less detailed electrical documentation |
 | ![](loadcell_seeed_314990000.png)<br>**Option 3**<br>Seeed Technology 314990000<br>0-500 g Load Cell<br>$17.00/each<br>[Link to product](https://www.digikey.com/en/products/detail/seeed-technology-co-ltd/314990000/5488115) | \* Designed for electronic weighing applications<br>\* Recommended 5 V excitation matches the subsystem supply<br>\* 0.5 ±0.1 mV/V output sensitivity<br>\* ±0.05% full-scale nonlinearity | \* Maximum capacity is only 500 g<br>\* Container plus liquid could exceed the 500 g limit<br>\* Most expensive load-cell option<br>\* Requires an external ADC/amplifier |
 
-**Choice:** Option 1: Soldered Electronics 555026 / 100382 1 kg Load Cell
+**Choice:** Option 2: Adafruit Industries 4540 1 kg Load Cell
 
-**Rationale:** The Soldered Electronics 555026 was selected because its 1 kg maximum load provides an appropriate measurement range for the liquid container used in the Fill-A-Bot. The sensor operates from a 5 V to 10 V excitation supply and produces a 2 ±0.1 mV/V differential output from its Wheatstone bridge. This allows the load cell to operate from the subsystem's regulated 5 V supply and interface with a high-resolution bridge-sensor ADC. Its documented electrical characteristics, 1 kg measurement range, and compatibility with the selected NAU7802 load-cell ADC make it well suited for the Liquid Amount Sensing subsystem.
+**Rationale:** The Adafruit Industries 4540 was selected because its 1 kg measurement range is appropriate for the Fill-A-Bot liquid container, it is readily available, and it is significantly less expensive than the originally considered Soldered Electronics load cell. The load cell is external to the subsystem PCB and interfaces with the selected NAU7802 load-cell ADC through the existing load-cell connector.
 
 The load cell is external to the Liquid Amount Sensing PCB and connects to the board through the 4-position load-cell connector using E+, E−, A+, and A−.
 
@@ -50,10 +50,10 @@ The NAU7802KGI is available in a 16-PDIP through-hole package, allowing the ADC 
 
 | **Component** | **Pin / Signal** | **Connection** | **Purpose** |
 | --- | --- | --- | --- |
-| External Soldered 555026 Load Cell | E+ / Input+ | +5V_BOARD through load-cell connector | Positive load-cell bridge excitation |
-| External Soldered 555026 Load Cell | E− / Input− | GND through load-cell connector | Negative load-cell bridge excitation |
-| External Soldered 555026 Load Cell | A+ / Output+ | R2 → NAU7802 VIN1P | Positive differential load-cell signal |
-| External Soldered 555026 Load Cell | A− / Output− | R1 → NAU7802 VIN1N | Negative differential load-cell signal |
+| External Adafruit 4540 Load Cell | E+ / Input+ | +5V_BOARD through load-cell connector | Positive load-cell bridge excitation |
+| External Adafruit 4540 Load Cell | E− / Input− | GND through load-cell connector | Negative load-cell bridge excitation |
+| External Adafruit 4540 Load Cell | A+ / Output+ | R2 → NAU7802 VIN1P | Positive differential load-cell signal |
+| External Adafruit 4540 Load Cell | A− / Output− | R1 → NAU7802 VIN1N | Negative differential load-cell signal |
 | NAU7802KGI | VIN1P | Load-cell A+ through 47 Ω R2 | Positive differential ADC input |
 | NAU7802KGI | VIN1N | Load-cell A− through 47 Ω R1 | Negative differential ADC input |
 | NAU7802KGI | SDIO | PIC18F57Q43 RB2 | Bidirectional digital ADC data and configuration |
