@@ -884,14 +884,8 @@
 
 <h1 id="bill-of-materials">Bill of Materials</h1>
 <h2 id="overview">Overview</h2>
-<p>The following Bill of Materials lists the components used in the
-Fill-A-Bot Liquid Amount Sensing subsystem. The subsystem uses a 1 kg
-load cell and NAU7802KGI 24-bit ADC to measure liquid weight, a
-PIC18F57Q43 Curiosity Nano for processing and control, and a four-wire
-direct digital interface for communication with the main controller.</p>
-<p>The team interface uses two command inputs, C1 and C0, to select one of
-four weight presets and two status outputs, S1 and S0, to report the
-current state of the Liquid Amount Sensing subsystem.</p>
+<p>The following Bill of Materials lists the components used in the Fill-A-Bot Liquid Amount Sensing subsystem. The subsystem uses an external 1 kg load cell and a NAU7802KGI 24-bit ADC to measure liquid weight, a PIC18F57Q43 Curiosity Nano for processing and control, and a four-wire direct digital interface for communication with the main controller.</p>
+<p>The team interface uses two command inputs, C1 and C0, to select one of four weight presets and two status outputs, S1 and S0, to report the current state of the Liquid Amount Sensing subsystem.</p>
 <h2 id="bill-of-materials_1">Bill of Materials</h2>
 <p><em>Table 1: Liquid Amount Sensing subsystem Bill of Materials</em></p>
 <table>
@@ -933,10 +927,10 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <tr>
 <td>LC1</td>
 <td style="text-align: right;">1</td>
-<td>Load cell</td>
+<td>External load cell</td>
 <td>Soldered Electronics</td>
 <td>555026 / 100382</td>
-<td>1 kg, 5-10 V excitation, 2 ±0.1 mV/V</td>
+<td>1 kg, 5–10 V excitation, 2 ±0.1 mV/V</td>
 </tr>
 <tr>
 <td>J1</td>
@@ -957,7 +951,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <tr>
 <td>J3</td>
 <td style="text-align: right;">1</td>
-<td>9-12 V power input connector</td>
+<td>9–12 V power input connector</td>
 <td>Dinkle</td>
 <td>EK508V-02P</td>
 <td>2-position, 5.08 mm screw terminal, THT</td>
@@ -1003,7 +997,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <td>2.54 mm jumper</td>
 </tr>
 <tr>
-<td>TP1-TP5</td>
+<td>TP1–TP5</td>
 <td style="text-align: right;">5</td>
 <td>Test point</td>
 <td>Keystone Electronics</td>
@@ -1032,7 +1026,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <td>ADC input resistor</td>
 <td>YAGEO</td>
 <td>MFR-25FTE52-47R</td>
-<td>47 Ω, ±1%, 1/4 W</td>
+<td>47 Ω, ±1%, 0.25 W</td>
 </tr>
 <tr>
 <td>R3</td>
@@ -1040,7 +1034,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <td>LED current-limiting resistor</td>
 <td>YAGEO</td>
 <td>MFR-25FTE52-1K2</td>
-<td>1.2 kΩ, ±1%, 1/4 W</td>
+<td>1.2 kΩ, ±1%, 0.25 W</td>
 </tr>
 <tr>
 <td>R4</td>
@@ -1048,7 +1042,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <td>Button pull-up resistor</td>
 <td>YAGEO</td>
 <td>MFR-25FTF52-10K</td>
-<td>10 kΩ, ±1%, 1/4 W</td>
+<td>10 kΩ, ±1%, 0.25 W</td>
 </tr>
 <tr>
 <td>R5, R6</td>
@@ -1056,15 +1050,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <td>NAU7802 digital-interface pull-up resistor</td>
 <td>YAGEO</td>
 <td>MFR-25FRF52-4K7</td>
-<td>4.7 kΩ, ±1%, 1/4 W, THT</td>
-</tr>
-<tr>
-<td>R7, R8</td>
-<td style="text-align: right;">2</td>
-<td>Weight-command input pull-down resistor</td>
-<td>Stackpole Electronics Inc</td>
-<td>RNMF14FTC100K</td>
-<td>100 kΩ, ±1%, 1/4 W, THT</td>
+<td>4.7 kΩ, ±1%, 0.25 W, THT</td>
 </tr>
 <tr>
 <td>C1</td>
@@ -1085,7 +1071,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 <tr>
 <td>C3, C4</td>
 <td style="text-align: right;">2</td>
-<td>ADC filter / VBG capacitor</td>
+<td>ADC filter / reference capacitor</td>
 <td>KEMET</td>
 <td>C320C104K3R5TA</td>
 <td>0.1 µF, 25 V, X7R, THT</td>
@@ -1117,8 +1103,7 @@ current state of the Liquid Amount Sensing subsystem.</p>
 </tbody>
 </table>
 <h2 id="team-interface">Team Interface</h2>
-<p>The Liquid Amount Sensing subsystem communicates with the main controller
-through J1 using four direct digital signals.</p>
+<p>The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller through J1 using four direct digital signals.</p>
 <table>
 <thead>
 <tr>
@@ -1179,9 +1164,7 @@ through J1 using four direct digital signals.</p>
 </tr>
 </tbody>
 </table>
-<p>C1 and C0 form the two-bit weight command input. R7 and R8 provide
-100 kΩ pull-down resistance on these inputs so that both command lines
-default LOW when no command is being driven.</p>
+<p>C1 and C0 form the two-bit weight-command input and connect directly to PIC pins RA3 and RA4.</p>
 <p>The weight command uses the following encoding:</p>
 <table>
 <thead>
@@ -1209,8 +1192,7 @@ default LOW when no command is being driven.</p>
 </tr>
 </tbody>
 </table>
-<p>S1 and S0 form the two-bit weight status output from the Liquid Amount
-Sensing subsystem to the main controller.</p>
+<p>S1 and S0 form the two-bit weight-status output from the Liquid Amount Sensing subsystem to the main controller. S1 is generated by PIC pin RE2 and S0 is generated by PIC pin RC7.</p>
 <p>The weight status uses the following encoding:</p>
 <table>
 <thead>
@@ -1240,12 +1222,11 @@ Sensing subsystem to the main controller.</p>
 </table>
 <p>The S1 and S0 outputs are initialized LOW by the subsystem software.</p>
 <h2 id="notes">Notes</h2>
-<p>The NAU7802KGI is mounted directly on the subsystem PCB rather than using
-a separate ADC daughter board.</p>
-<p>The team interface does not carry subsystem power. J1 Pins 1 through 4
-are used for the C1, C0, S1, and S0 direct digital signals, Pins 5 through
-7 are unused, and Pin 8 provides the common ground connection between the
-Liquid Amount Sensing subsystem and the main controller.</p>
+<p>The 1 kg load cell is external to the Liquid Amount Sensing PCB and connects to the board through the OSTVN04A150 load-cell connector using E+, E−, A+, and A−.</p>
+<p>The NAU7802KGI is mounted directly on the subsystem PCB rather than using a separate ADC daughter board.</p>
+<p>The team interface does not carry subsystem power. J1 Pins 1 through 4 are used for the C1, C0, S1, and S0 direct digital signals, Pins 5 through 7 are unused, and Pin 8 provides the common ground connection between the Liquid Amount Sensing subsystem and the main controller.</p>
+<p>The subsystem power path is:</p>
+<p><strong>9–12 V Input → 500 mA Fuse → LM7805CT → +5V_LOCAL → JP2 → +5V_BOARD</strong></p>
 
 
 
