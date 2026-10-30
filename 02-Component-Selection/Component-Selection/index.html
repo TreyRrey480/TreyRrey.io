@@ -579,6 +579,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#microcontroller-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microcontroller Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#team-interface" class="md-nav__link">
     <span class="md-ellipsis">
       Team Interface
@@ -851,6 +860,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#microcontroller-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microcontroller Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#team-interface" class="md-nav__link">
     <span class="md-ellipsis">
       Team Interface
@@ -1089,6 +1107,88 @@
 </tr>
 </tbody>
 </table>
+<h2 id="microcontroller-configuration">Microcontroller Configuration</h2>
+<p>The Liquid Amount Sensing subsystem uses a Microchip PIC18F57Q43 Curiosity Nano for processing, local control, and communication with the Fill-A-Bot main controller.</p>
+<p>The following PIC18F57Q43 pins are used by the final subsystem design:</p>
+<table>
+<thead>
+<tr>
+<th><strong>PIC Pin</strong></th>
+<th><strong>Configuration</strong></th>
+<th><strong>Connected Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RB2</td>
+<td>Digital bidirectional I/O</td>
+<td>NAU7802 SDIO</td>
+</tr>
+<tr>
+<td>RB1</td>
+<td>Digital output</td>
+<td>NAU7802 SCLK</td>
+</tr>
+<tr>
+<td>RC0</td>
+<td>Digital input</td>
+<td>NAU7802 DRDY</td>
+</tr>
+<tr>
+<td>RA3</td>
+<td>Digital input</td>
+<td>C1 weight-command bit 1</td>
+</tr>
+<tr>
+<td>RA4</td>
+<td>Digital input</td>
+<td>C0 weight-command bit 0</td>
+</tr>
+<tr>
+<td>RE2</td>
+<td>Digital output</td>
+<td>S1 weight-status bit 1</td>
+</tr>
+<tr>
+<td>RC7</td>
+<td>Digital output</td>
+<td>S0 weight-status bit 0</td>
+</tr>
+<tr>
+<td>RA0</td>
+<td>Digital input</td>
+<td>TARE/ZERO pushbutton</td>
+</tr>
+<tr>
+<td>RC1</td>
+<td>Digital output</td>
+<td>Status LED</td>
+</tr>
+<tr>
+<td>RD0</td>
+<td>GPIO</td>
+<td>GPIO1 expansion</td>
+</tr>
+<tr>
+<td>RD1</td>
+<td>GPIO</td>
+<td>GPIO2 expansion</td>
+</tr>
+<tr>
+<td>RD2</td>
+<td>GPIO</td>
+<td>GPIO3 expansion</td>
+</tr>
+<tr>
+<td>RD3</td>
+<td>GPIO</td>
+<td>GPIO4 expansion</td>
+</tr>
+</tbody>
+</table>
+<p>The NAU7802 interface is local to the Liquid Amount Sensing subsystem. SDIO provides bidirectional ADC data and configuration, SCLK provides the digital clock, and DRDY indicates when a new conversion is available.</p>
+<p>RA3 and RA4 receive the two command bits from the main controller, while RE2 and RC7 return the two subsystem status bits. RA0 is used for the tare/zero input and RC1 controls the status LED.</p>
+<p>Unused Curiosity Nano pins are not required for normal subsystem operation.</p>
 <h2 id="team-interface">Team Interface</h2>
 <p>The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using a four-wire direct digital interface.</p>
 <p>C1 and C0 are two command inputs used to select one of four weight presets. They connect directly to PIC pins RA3 and RA4.</p>
