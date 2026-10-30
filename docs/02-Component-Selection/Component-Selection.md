@@ -72,6 +72,34 @@ The NAU7802KGI is available in a 16-PDIP through-hole package, allowing the ADC 
 | Team Connector J1 | Pins 5–7 | NC | Unused |
 | Team Connector J1 | Pin 8 | GND | Common ground between team subsystems |
 
+## Microcontroller Configuration
+
+The Liquid Amount Sensing subsystem uses a Microchip PIC18F57Q43 Curiosity Nano for processing, local control, and communication with the Fill-A-Bot main controller.
+
+The following PIC18F57Q43 pins are used by the final subsystem design:
+
+| **PIC Pin** | **Configuration** | **Connected Function** |
+| --- | --- | --- |
+| RB2 | Digital bidirectional I/O | NAU7802 SDIO |
+| RB1 | Digital output | NAU7802 SCLK |
+| RC0 | Digital input | NAU7802 DRDY |
+| RA3 | Digital input | C1 weight-command bit 1 |
+| RA4 | Digital input | C0 weight-command bit 0 |
+| RE2 | Digital output | S1 weight-status bit 1 |
+| RC7 | Digital output | S0 weight-status bit 0 |
+| RA0 | Digital input | TARE/ZERO pushbutton |
+| RC1 | Digital output | Status LED |
+| RD0 | GPIO | GPIO1 expansion |
+| RD1 | GPIO | GPIO2 expansion |
+| RD2 | GPIO | GPIO3 expansion |
+| RD3 | GPIO | GPIO4 expansion |
+
+The NAU7802 interface is local to the Liquid Amount Sensing subsystem. SDIO provides bidirectional ADC data and configuration, SCLK provides the digital clock, and DRDY indicates when a new conversion is available.
+
+RA3 and RA4 receive the two command bits from the main controller, while RE2 and RC7 return the two subsystem status bits. RA0 is used for the tare/zero input and RC1 controls the status LED.
+
+Unused Curiosity Nano pins are not required for normal subsystem operation.
+
 ## Team Interface
 
 The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using a four-wire direct digital interface.
