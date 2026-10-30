@@ -759,6 +759,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#design-impact-of-the-power-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Impact of the Power Budget
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#conclusions" class="md-nav__link">
     <span class="md-ellipsis">
       Conclusions
@@ -944,6 +953,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#design-impact-of-the-power-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Impact of the Power Budget
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#conclusions" class="md-nav__link">
     <span class="md-ellipsis">
       Conclusions
@@ -1023,6 +1041,11 @@
 <p><strong>P_D = (12 V - 5 V) × 0.09 A</strong></p>
 <p><strong>P_D = 0.63 W</strong></p>
 <p>The 12 V input condition produces the greatest estimated regulator dissipation and therefore represents the worst-case thermal condition evaluated in the power budget.</p>
+<h2 id="design-impact-of-the-power-budget">Design Impact of the Power Budget</h2>
+<p>The power budget was used to determine whether the selected power components could safely support the Liquid Amount Sensing subsystem under expected operating conditions.</p>
+<p>The calculated design requirement of approximately <strong>89.74 mA</strong>, including the 25% design margin, shows that the subsystem requires substantially less current than the <strong>500 mA fuse rating</strong>. This confirms that the selected fuse provides sufficient operating margin while still providing input protection for the subsystem.</p>
+<p>The analysis also showed that current capacity is not the primary limitation of the power design. Instead, the largest concern is the power dissipated by the <strong>LM7805CT linear regulator</strong> as the input voltage increases. At a 12 V input, the regulator is estimated to dissipate approximately <strong>0.63 W</strong>, compared with approximately <strong>0.36 W</strong> at a 9 V input.</p>
+<p>Based on these results, the subsystem power supply has sufficient current capacity, but regulator temperature should be monitored during hardware testing. Operating closer to the lower end of the 9–12 V input range will also reduce the power that must be dissipated by the LM7805CT.</p>
 <h2 id="conclusions">Conclusions</h2>
 <p>The Liquid Amount Sensing subsystem has an estimated operating current of <strong>71.79 mA</strong> and an estimated load power of <strong>358.95 mW</strong> at 5 V.</p>
 <p>After applying a 25% design margin, the required current increases to approximately <strong>89.74 mA</strong>.</p>
