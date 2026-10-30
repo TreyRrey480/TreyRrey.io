@@ -6,15 +6,9 @@ title: Bill of Materials
 
 ## Overview
 
-The following Bill of Materials lists the components used in the
-Fill-A-Bot Liquid Amount Sensing subsystem. The subsystem uses a 1 kg
-load cell and NAU7802KGI 24-bit ADC to measure liquid weight, a
-PIC18F57Q43 Curiosity Nano for processing and control, and a four-wire
-direct digital interface for communication with the main controller.
+The following Bill of Materials lists the components used in the Fill-A-Bot Liquid Amount Sensing subsystem. The subsystem uses an external 1 kg load cell and a NAU7802KGI 24-bit ADC to measure liquid weight, a PIC18F57Q43 Curiosity Nano for processing and control, and a four-wire direct digital interface for communication with the main controller.
 
-The team interface uses two command inputs, C1 and C0, to select one of
-four weight presets and two status outputs, S1 and S0, to report the
-current state of the Liquid Amount Sensing subsystem.
+The team interface uses two command inputs, C1 and C0, to select one of four weight presets and two status outputs, S1 and S0, to report the current state of the Liquid Amount Sensing subsystem.
 
 ## Bill of Materials
 
@@ -25,34 +19,32 @@ current state of the Liquid Amount Sensing subsystem.
 | U1 | 1 | Load-cell ADC | Nuvoton Technology | NAU7802KGI | 24-bit sigma-delta ADC with PGA, 16-PDIP |
 | U2 | 1 | Microcontroller development board | Microchip Technology | PIC18F57Q43 Curiosity Nano | PIC18F57Q43 Curiosity Nano |
 | U3 | 1 | 5 V linear regulator | Texas Instruments | LM7805CT | Fixed 5 V, TO-220, THT |
-| LC1 | 1 | Load cell | Soldered Electronics | 555026 / 100382 | 1 kg, 5-10 V excitation, 2 ±0.1 mV/V |
+| LC1 | 1 | External load cell | Soldered Electronics | 555026 / 100382 | 1 kg, 5–10 V excitation, 2 ±0.1 mV/V |
 | J1 | 1 | Team connector | Assmann | AWH 08G-0502-T | 8-position, 2×4, 2.54 mm, shrouded THT |
 | J2 | 1 | Load-cell connector | On Shore Technology | OSTVN04A150 | 4-position, 2.54 mm screw terminal, THT |
-| J3 | 1 | 9-12 V power input connector | Dinkle | EK508V-02P | 2-position, 5.08 mm screw terminal, THT |
+| J3 | 1 | 9–12 V power input connector | Dinkle | EK508V-02P | 2-position, 5.08 mm screw terminal, THT |
 | J4 | 1 | GPIO expansion header | Amphenol | 10129378-906002BLF | 1×6, 2.54 mm male header, THT |
 | FH1 | 1 | PCB fuse holder | Würth Elektronik | 952017100000000 | 5×20 mm cartridge fuse holder, THT |
 | F1 | 1 | Fuse | Weidmüller | 0430600000 | 500 mA, 250 V, quick-acting, 5×20 mm |
 | JP2 | 1 | Local 5 V select jumper | Würth Elektronik | 61300211121 | 1×2, 2.54 mm, THT |
 | SH1 | 1 | Jumper shunt | Würth Elektronik | 60900213421 | 2.54 mm jumper |
-| TP1-TP5 | 5 | Test point | Keystone Electronics | 5001 | Miniature THT test point |
+| TP1–TP5 | 5 | Test point | Keystone Electronics | 5001 | Miniature THT test point |
 | LED1 | 1 | Status / debug LED | Kingbright | WP7113LZGCK | Green, 5 mm, THT |
 | SW1 | 1 | Tare / zero pushbutton | Omron | B3F-1020 | SPST-NO momentary, 6×6 mm, THT |
-| R1, R2 | 2 | ADC input resistor | YAGEO | MFR-25FTE52-47R | 47 Ω, ±1%, 1/4 W |
-| R3 | 1 | LED current-limiting resistor | YAGEO | MFR-25FTE52-1K2 | 1.2 kΩ, ±1%, 1/4 W |
-| R4 | 1 | Button pull-up resistor | YAGEO | MFR-25FTF52-10K | 10 kΩ, ±1%, 1/4 W |
-| R5, R6 | 2 | NAU7802 digital-interface pull-up resistor | YAGEO | MFR-25FRF52-4K7 | 4.7 kΩ, ±1%, 1/4 W, THT |
-| R7, R8 | 2 | Weight-command input pull-down resistor | Stackpole Electronics Inc | RNMF14FTC100K | 100 kΩ, ±1%, 1/4 W, THT |
+| R1, R2 | 2 | ADC input resistor | YAGEO | MFR-25FTE52-47R | 47 Ω, ±1%, 0.25 W |
+| R3 | 1 | LED current-limiting resistor | YAGEO | MFR-25FTE52-1K2 | 1.2 kΩ, ±1%, 0.25 W |
+| R4 | 1 | Button pull-up resistor | YAGEO | MFR-25FTF52-10K | 10 kΩ, ±1%, 0.25 W |
+| R5, R6 | 2 | NAU7802 digital-interface pull-up resistor | YAGEO | MFR-25FRF52-4K7 | 4.7 kΩ, ±1%, 0.25 W, THT |
 | C1 | 1 | LM7805 input capacitor | TDK | FA24X8R1E334KNU06 | 0.33 µF, 25 V, ceramic THT |
 | C2 | 1 | LM7805 output capacitor | TDK | FA28X8R1E104KNU06 | 0.1 µF, 25 V, ceramic THT |
-| C3, C4 | 2 | ADC filter / VBG capacitor | KEMET | C320C104K3R5TA | 0.1 µF, 25 V, X7R, THT |
+| C3, C4 | 2 | ADC filter / reference capacitor | KEMET | C320C104K3R5TA | 0.1 µF, 25 V, X7R, THT |
 | C5, C6 | 2 | ADC supply capacitor | TDK | FG18X7R1E105KRT06 | 1 µF, 25 V, X7R, THT |
 | C7 | 1 | Button debounce capacitor | TDK | FG18X7R1E105KRT06 | 1 µF, 25 V, X7R, THT |
 | C8 | 1 | Curiosity Nano bypass capacitor | KEMET | C320C104K3R5TA | 0.1 µF, 25 V, X7R, THT |
 
 ## Team Interface
 
-The Liquid Amount Sensing subsystem communicates with the main controller
-through J1 using four direct digital signals.
+The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller through J1 using four direct digital signals.
 
 | **J1 Pin** | **Signal** | **PIC Pin** | **Direction** |
 | ---: | --- | --- | --- |
@@ -65,9 +57,7 @@ through J1 using four direct digital signals.
 | 7 | NC | — | Unused |
 | 8 | GND | GND | Common ground |
 
-C1 and C0 form the two-bit weight command input. R7 and R8 provide
-100 kΩ pull-down resistance on these inputs so that both command lines
-default LOW when no command is being driven.
+C1 and C0 form the two-bit weight-command input and connect directly to PIC pins RA3 and RA4.
 
 The weight command uses the following encoding:
 
@@ -78,8 +68,7 @@ The weight command uses the following encoding:
 | 10 | Preset 3 |
 | 11 | Preset 4 |
 
-S1 and S0 form the two-bit weight status output from the Liquid Amount
-Sensing subsystem to the main controller.
+S1 and S0 form the two-bit weight-status output from the Liquid Amount Sensing subsystem to the main controller. S1 is generated by PIC pin RE2 and S0 is generated by PIC pin RC7.
 
 The weight status uses the following encoding:
 
@@ -94,10 +83,12 @@ The S1 and S0 outputs are initialized LOW by the subsystem software.
 
 ## Notes
 
-The NAU7802KGI is mounted directly on the subsystem PCB rather than using
-a separate ADC daughter board.
+The 1 kg load cell is external to the Liquid Amount Sensing PCB and connects to the board through the OSTVN04A150 load-cell connector using E+, E−, A+, and A−.
 
-The team interface does not carry subsystem power. J1 Pins 1 through 4
-are used for the C1, C0, S1, and S0 direct digital signals, Pins 5 through
-7 are unused, and Pin 8 provides the common ground connection between the
-Liquid Amount Sensing subsystem and the main controller.
+The NAU7802KGI is mounted directly on the subsystem PCB rather than using a separate ADC daughter board.
+
+The team interface does not carry subsystem power. J1 Pins 1 through 4 are used for the C1, C0, S1, and S0 direct digital signals, Pins 5 through 7 are unused, and Pin 8 provides the common ground connection between the Liquid Amount Sensing subsystem and the main controller.
+
+The subsystem power path is:
+
+**9–12 V Input → 500 mA Fuse → LM7805CT → +5V_LOCAL → JP2 → +5V_BOARD**
