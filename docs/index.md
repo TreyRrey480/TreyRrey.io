@@ -49,8 +49,8 @@ components, designing the electrical connections, interfacing the sensor
 electronics with the PIC18F57Q43, developing the subsystem power and
 communication interfaces, and documenting the subsystem.
 
-The major components selected for the subsystem are a Soldered Electronics
-555026 / 100382 1 kg load cell and a Nuvoton Technology NAU7802KGI
+The major components selected for the subsystem are an Adafruit Industries
+4540 1 kg load cell and a Nuvoton Technology NAU7802KGI
 24-bit load-cell ADC with a programmable gain amplifier.
 
 The NAU7802 communicates locally with the PIC18F57Q43 using SDIO, SCLK,
