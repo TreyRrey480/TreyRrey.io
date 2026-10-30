@@ -853,9 +853,9 @@ Liquid Amount Sensing subsystem for the Fill-A-Bot project. The subsystem
 is responsible for measuring the amount of liquid in the system and
 providing this information to the rest of the embedded system.</p>
 <p>The subsystem uses a load cell to measure weight. Because a load cell
-produces a very small differential voltage, a load-cell ADC/amplifier is
-used to amplify and digitize the signal before it is processed by the
-PIC18F57Q43 microcontroller.</p>
+produces a very small differential voltage, a load-cell ADC with a
+programmable gain amplifier is used to amplify and digitize the signal
+before it is processed by the PIC18F57Q43 microcontroller.</p>
 <h3 id="project-summary">Project Summary</h3>
 <p>The Fill-A-Bot is a team embedded-systems project consisting of multiple
 subsystems that work together to control and monitor the movement and
@@ -864,22 +864,28 @@ dispensing of liquid.</p>
 purpose is to measure the amount of liquid present so that the system can
 monitor changes in liquid quantity and provide measurement data to the
 main controller.</p>
-<p>The subsystem is based around a load cell, load-cell ADC/amplifier, and
-PIC18F57Q43 microcontroller.</p>
+<p>The subsystem is based around a 1 kg load cell, NAU7802KGI 24-bit
+load-cell ADC, and PIC18F57Q43 microcontroller.</p>
 <h3 id="my-contribution">My Contribution</h3>
 <p>My individual contribution is the design and implementation of the
 Liquid Amount Sensing subsystem. This includes selecting the sensing
 components, designing the electrical connections, interfacing the sensor
-electronics with the PIC18F57Q43, and documenting the subsystem.</p>
+electronics with the PIC18F57Q43, developing the subsystem power and
+communication interfaces, and documenting the subsystem.</p>
 <p>The major components selected for the subsystem are a Soldered Electronics
-555026 1 kg load cell and a SparkFun SEN-13879 HX711 load-cell
-ADC/amplifier.</p>
+555026 / 100382 1 kg load cell and a Nuvoton Technology NAU7802KGI
+24-bit load-cell ADC with a programmable gain amplifier.</p>
+<p>The NAU7802 communicates locally with the PIC18F57Q43 using SDIO, SCLK,
+and DRDY. Communication between the Liquid Amount Sensing subsystem and
+the Fill-A-Bot main controller uses four direct digital signals. C1 and
+C0 are command inputs from the main controller, while S1 and S0 are
+status outputs from the Liquid Amount Sensing subsystem.</p>
 <p>The following sections document the development of my subsystem:</p>
 <ul>
 <li><a href="01-Block-Diagram/Block-Diagram/">Block Diagram</a></li>
 <li><a href="02-Component-Selection/Component-Selection/">Component Selection</a></li>
 <li><a href="03-BOM/BOM/">Bill of Materials</a></li>
-<li><a href="04-Schematic/Schematic.md">Schematic</a></li>
+<li><a href="04-Schematic/schematic/">Schematic</a></li>
 <li><a href="05-Power-Budget/Power-Budget/">Power Budget</a></li>
 </ul>
 
