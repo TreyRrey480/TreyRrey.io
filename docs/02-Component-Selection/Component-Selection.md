@@ -78,9 +78,13 @@ The Liquid Amount Sensing subsystem uses a Microchip PIC18F57Q43 Curiosity Nano 
 
 The following PIC18F57Q43 pins are used by the final subsystem design:
 
+![PIC18F57Q43 MCC Pin Configuration](MCC-Pin-Configuration.png)
+
+**Figure 1:** Final MCC pin configuration for the PIC18F57Q43 used in the Liquid Amount Sensing subsystem.
+
 | **PIC Pin** | **Configuration** | **Connected Function** |
 | --- | --- | --- |
-| RB2 | Digital bidirectional I/O | NAU7802 SDIO |
+| RB2 | Digital output | NAU7802 SDIO |
 | RB1 | Digital output | NAU7802 SCLK |
 | RC0 | Digital input | NAU7802 DRDY |
 | RA3 | Digital input | C1 weight-command bit 1 |
