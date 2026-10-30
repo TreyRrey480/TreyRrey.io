@@ -884,11 +884,7 @@
 
 <h1 id="component-selection">Component Selection</h1>
 <p><strong>Individual Subsystem: Liquid Amount Sensing</strong></p>
-<p>The Liquid Amount Sensing subsystem measures the amount of liquid in the
-Fill-A-Bot using a load cell. The small differential signal from the load cell
-must be amplified and converted into digital data before it can be processed
-by the PIC18F57Q43 microcontroller. The following sections compare potential
-load cells and load-cell ADC/amplifier solutions for this subsystem.</p>
+<p>The Liquid Amount Sensing subsystem measures the amount of liquid in the Fill-A-Bot using an external load cell. The small differential signal from the load cell must be amplified and converted into digital data before it can be processed by the PIC18F57Q43 microcontroller. The following sections compare potential load cells and load-cell ADC/amplifier solutions for this subsystem.</p>
 <h2 id="load-cell-selection">Load Cell Selection</h2>
 <p><em>Table 1: Load cell component selection</em></p>
 <p><strong>Load Cell / Weight Sensor</strong></p>
@@ -919,15 +915,8 @@ load cells and load-cell ADC/amplifier solutions for this subsystem.</p>
 </tbody>
 </table>
 <p><strong>Choice:</strong> Option 1: Soldered Electronics 555026 / 100382 1 kg Load Cell</p>
-<p><strong>Rationale:</strong> The Soldered Electronics 555026 was selected because its
-1 kg maximum load provides an appropriate measurement range for the liquid
-container used in the Fill-A-Bot. The sensor operates from a 5 V to 10 V
-excitation supply and produces a 2 ±0.1 mV/V differential output from its
-Wheatstone bridge. This allows the load cell to operate from the subsystem's
-regulated 5 V supply and interface with a high-resolution bridge-sensor ADC.
-Its documented electrical characteristics, 1 kg measurement range, and
-compatibility with the selected NAU7802 load-cell ADC make it well suited
-for the Liquid Amount Sensing subsystem.</p>
+<p><strong>Rationale:</strong> The Soldered Electronics 555026 was selected because its 1 kg maximum load provides an appropriate measurement range for the liquid container used in the Fill-A-Bot. The sensor operates from a 5 V to 10 V excitation supply and produces a 2 ±0.1 mV/V differential output from its Wheatstone bridge. This allows the load cell to operate from the subsystem's regulated 5 V supply and interface with a high-resolution bridge-sensor ADC. Its documented electrical characteristics, 1 kg measurement range, and compatibility with the selected NAU7802 load-cell ADC make it well suited for the Liquid Amount Sensing subsystem.</p>
+<p>The load cell is external to the Liquid Amount Sensing PCB and connects to the board through the 4-position load-cell connector using E+, E−, A+, and A−.</p>
 <h2 id="load-cell-adc-amplifier-selection">Load Cell ADC / Amplifier Selection</h2>
 <p><em>Table 2: Load cell ADC/amplifier component selection</em></p>
 <p><strong>Load Cell ADC / Amplifier</strong></p>
@@ -958,18 +947,8 @@ for the Liquid Amount Sensing subsystem.</p>
 </tbody>
 </table>
 <p><strong>Choice:</strong> Option 2: Nuvoton Technology NAU7802KGI</p>
-<p><strong>Rationale:</strong> The Nuvoton Technology NAU7802KGI was selected because it
-combines a 24-bit sigma-delta ADC with a programmable gain amplifier designed
-for precision bridge and strain-gauge measurements. Its programmable gain
-allows the very small differential output of the load cell to be amplified
-before analog-to-digital conversion. The device operates from 2.7 V to 5.5 V,
-making it compatible with the subsystem's regulated 5 V supply. The
-NAU7802KGI is available in a 16-PDIP through-hole package, allowing the ADC
-to be integrated directly onto the subsystem PCB without using a daughter
-board. At approximately $2.26 per device, it is also significantly less
-expensive than the HX711 breakout board and ADS1232 option. These
-characteristics make the NAU7802KGI the best fit for the final Liquid Amount
-Sensing subsystem.</p>
+<p><strong>Rationale:</strong> The Nuvoton Technology NAU7802KGI was selected because it combines a 24-bit sigma-delta ADC with a programmable gain amplifier designed for precision bridge and strain-gauge measurements. Its programmable gain allows the very small differential output of the load cell to be amplified before analog-to-digital conversion. The device operates from 2.7 V to 5.5 V, making it compatible with the subsystem's regulated 5 V supply.</p>
+<p>The NAU7802KGI is available in a 16-PDIP through-hole package, allowing the ADC to be integrated directly onto the subsystem PCB without using a daughter board. At approximately $2.26 per device, it is also significantly less expensive than the HX711 breakout board and ADS1232 option. These characteristics make the NAU7802KGI the best fit for the final Liquid Amount Sensing subsystem.</p>
 <h2 id="pin-table">Pin Table</h2>
 <p><em>Table 3: Liquid Amount Sensing subsystem pin connections</em></p>
 <table>
@@ -983,26 +962,26 @@ Sensing subsystem.</p>
 </thead>
 <tbody>
 <tr>
-<td>Soldered 555026 Load Cell</td>
+<td>External Soldered 555026 Load Cell</td>
 <td>E+ / Input+</td>
-<td>+5V_BOARD</td>
+<td>+5V_BOARD through load-cell connector</td>
 <td>Positive load-cell bridge excitation</td>
 </tr>
 <tr>
-<td>Soldered 555026 Load Cell</td>
-<td>E- / Input-</td>
-<td>GND</td>
+<td>External Soldered 555026 Load Cell</td>
+<td>E− / Input−</td>
+<td>GND through load-cell connector</td>
 <td>Negative load-cell bridge excitation</td>
 </tr>
 <tr>
-<td>Soldered 555026 Load Cell</td>
+<td>External Soldered 555026 Load Cell</td>
 <td>A+ / Output+</td>
 <td>R2 → NAU7802 VIN1P</td>
 <td>Positive differential load-cell signal</td>
 </tr>
 <tr>
-<td>Soldered 555026 Load Cell</td>
-<td>A- / Output-</td>
+<td>External Soldered 555026 Load Cell</td>
+<td>A− / Output−</td>
 <td>R1 → NAU7802 VIN1N</td>
 <td>Negative differential load-cell signal</td>
 </tr>
@@ -1015,20 +994,20 @@ Sensing subsystem.</p>
 <tr>
 <td>NAU7802KGI</td>
 <td>VIN1N</td>
-<td>Load-cell A- through 47 Ω R1</td>
+<td>Load-cell A− through 47 Ω R1</td>
 <td>Negative differential ADC input</td>
 </tr>
 <tr>
 <td>NAU7802KGI</td>
 <td>SDIO</td>
 <td>PIC18F57Q43 RB2</td>
-<td>Bidirectional digital ADC data</td>
+<td>Bidirectional digital ADC data and configuration</td>
 </tr>
 <tr>
 <td>NAU7802KGI</td>
 <td>SCLK</td>
 <td>PIC18F57Q43 RB1</td>
-<td>Digital clock from PIC to ADC</td>
+<td>Digital clock</td>
 </tr>
 <tr>
 <td>NAU7802KGI</td>
@@ -1098,7 +1077,7 @@ Sensing subsystem.</p>
 </tr>
 <tr>
 <td>Team Connector J1</td>
-<td>Pins 5-7</td>
+<td>Pins 5–7</td>
 <td>NC</td>
 <td>Unused</td>
 </tr>
@@ -1108,23 +1087,11 @@ Sensing subsystem.</p>
 <td>GND</td>
 <td>Common ground between team subsystems</td>
 </tr>
-<tr>
-<td>R7</td>
-<td>100 kΩ</td>
-<td>C1 → GND</td>
-<td>Pull-down resistor for C1 command input</td>
-</tr>
-<tr>
-<td>R8</td>
-<td>100 kΩ</td>
-<td>C0 → GND</td>
-<td>Pull-down resistor for C0 command input</td>
-</tr>
 </tbody>
 </table>
 <h2 id="team-interface">Team Interface</h2>
 <p>The Liquid Amount Sensing subsystem communicates with the Fill-A-Bot main controller using a four-wire direct digital interface.</p>
-<p>C1 and C0 are two command inputs used to select one of four weight presets.</p>
+<p>C1 and C0 are two command inputs used to select one of four weight presets. They connect directly to PIC pins RA3 and RA4.</p>
 <table>
 <thead>
 <tr>
@@ -1151,8 +1118,7 @@ Sensing subsystem.</p>
 </tr>
 </tbody>
 </table>
-<p>R7 and R8 are 100 kΩ pull-down resistors that hold C1 and C0 LOW when the command lines are not actively driven by the main controller.</p>
-<p>S1 and S0 are two status outputs used to report the current state of the Liquid Amount Sensing subsystem.</p>
+<p>S1 and S0 are two status outputs used to report the current state of the Liquid Amount Sensing subsystem. S1 is generated by PIC pin RE2 and S0 is generated by PIC pin RC7.</p>
 <table>
 <thead>
 <tr>
@@ -1181,6 +1147,7 @@ Sensing subsystem.</p>
 </table>
 <p>The S1 and S0 outputs will be initialized LOW by the subsystem software.</p>
 <p>J1 Pins 5 through 7 are unused, and Pin 8 provides the common ground connection between the Liquid Amount Sensing subsystem and the main controller.</p>
+<p>The team connector does not carry subsystem power.</p>
 
 
 
