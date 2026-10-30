@@ -32,14 +32,16 @@ The simplified power path shown in the block diagram is:
 
 ## Liquid Amount Sensing
 
-The subsystem uses an external Soldered Electronics 555026 / 100382 1 kg load cell to measure the combined weight of the container and liquid.
+The subsystem uses an external Adafruit Industries 4540 1 kg load cell to measure the combined weight of the container and liquid.
 
-The load cell uses four electrical connections:
+The Adafruit 4540 is external to the subsystem PCB and connects to the PCB through the 4-position load-cell interface.
+
+The load-cell interface uses four electrical connections:
 
 - **E+** — Positive bridge excitation
 - **E−** — Negative bridge excitation
-- **A+** — Positive differential output
-- **A−** — Negative differential output
+- **A+** — Positive differential measurement signal
+- **A−** — Negative differential measurement signal
 
 The external load cell connects to the sensor PCB through an On Shore Technology OSTVN04A150 4-position load-cell connector.
 
@@ -50,6 +52,8 @@ The A+ and A− signals are routed through the analog input circuitry to the NAU
 The block diagram simplifies the external load-cell connection as a single functional connection labeled:
 
 **E+, E−, A+, A−**
+
+The load cell remains external to the PCB, while the NAU7802 ADC interface, PIC18F57Q43 connections, team communication interface, and subsystem PCB architecture are contained within the Liquid Amount Sensing subsystem.
 
 ## NAU7802 ADC Interface
 
