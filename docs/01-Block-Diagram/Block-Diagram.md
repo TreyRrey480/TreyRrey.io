@@ -175,6 +175,13 @@ The status path is:
 
 The power path is:
 
-**9–12 V Input → 500 mA Fuse/Holder → LM7805CT → +5 V Regulated**
+**9–12 V Input → 500 mA Fuse → LM7805CT → +5V_LOCAL → JP2 → +5V_BOARD**
 
 The four-wire digital interface allows the main controller to select one of four weight presets and allows the Liquid Amount Sensing subsystem to report whether it is not ready, below the target, at the target, or in an error state.
+
+## Source Files
+
+The editable source file used to create the individual block diagram is available below:
+
+- [Download the Individual Block Diagram Draw.io Source](individual-block-diagram.drawio.xml)
+- [Download the Individual Block Diagram PNG](individual-block-diagram.png)
