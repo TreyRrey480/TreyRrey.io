@@ -932,8 +932,8 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Choice:</strong> Option 1: Soldered Electronics 555026 / 100382 1 kg Load Cell</p>
-<p><strong>Rationale:</strong> The Soldered Electronics 555026 was selected because its 1 kg maximum load provides an appropriate measurement range for the liquid container used in the Fill-A-Bot. The sensor operates from a 5 V to 10 V excitation supply and produces a 2 ±0.1 mV/V differential output from its Wheatstone bridge. This allows the load cell to operate from the subsystem's regulated 5 V supply and interface with a high-resolution bridge-sensor ADC. Its documented electrical characteristics, 1 kg measurement range, and compatibility with the selected NAU7802 load-cell ADC make it well suited for the Liquid Amount Sensing subsystem.</p>
+<p><strong>Choice:</strong> Option 2: Adafruit Industries 4540 1 kg Load Cell</p>
+<p><strong>Rationale:</strong> The Adafruit Industries 4540 was selected because its 1 kg measurement range is appropriate for the Fill-A-Bot liquid container, it is readily available, and it is significantly less expensive than the originally considered Soldered Electronics load cell. The load cell is external to the subsystem PCB and interfaces with the selected NAU7802 load-cell ADC through the existing load-cell connector.</p>
 <p>The load cell is external to the Liquid Amount Sensing PCB and connects to the board through the 4-position load-cell connector using E+, E−, A+, and A−.</p>
 <h2 id="load-cell-adc-amplifier-selection">Load Cell ADC / Amplifier Selection</h2>
 <p><em>Table 2: Load cell ADC/amplifier component selection</em></p>
@@ -980,25 +980,25 @@
 </thead>
 <tbody>
 <tr>
-<td>External Soldered 555026 Load Cell</td>
+<td>External Adafruit 4540 Load Cell</td>
 <td>E+ / Input+</td>
 <td>+5V_BOARD through load-cell connector</td>
 <td>Positive load-cell bridge excitation</td>
 </tr>
 <tr>
-<td>External Soldered 555026 Load Cell</td>
+<td>External Adafruit 4540 Load Cell</td>
 <td>E− / Input−</td>
 <td>GND through load-cell connector</td>
 <td>Negative load-cell bridge excitation</td>
 </tr>
 <tr>
-<td>External Soldered 555026 Load Cell</td>
+<td>External Adafruit 4540 Load Cell</td>
 <td>A+ / Output+</td>
 <td>R2 → NAU7802 VIN1P</td>
 <td>Positive differential load-cell signal</td>
 </tr>
 <tr>
-<td>External Soldered 555026 Load Cell</td>
+<td>External Adafruit 4540 Load Cell</td>
 <td>A− / Output−</td>
 <td>R1 → NAU7802 VIN1N</td>
 <td>Negative differential load-cell signal</td>
