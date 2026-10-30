@@ -48,7 +48,7 @@ The power path is:
 
 ## Load Cell Interface
 
-The subsystem uses an external Soldered Electronics 555026 / 100382 1 kg load cell.
+The subsystem uses an external Adafruit Industries 4540 1 kg load cell.
 
 The external load cell connects to the PCB through an On Shore Technology OSTVN04A150 4-position screw-terminal connector.
 
