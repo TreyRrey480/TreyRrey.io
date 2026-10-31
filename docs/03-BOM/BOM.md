@@ -18,7 +18,7 @@ The team interface uses two command inputs, C1 and C0, to select one of four wei
 | --- | ---: | --- | --- | --- | --- |
 | U1 | 1 | Load-cell ADC | Nuvoton Technology | NAU7802KGI | 24-bit sigma-delta ADC with PGA, 16-PDIP |
 | U2 | 1 | Microcontroller development board | Microchip Technology | PIC18F57Q43 Curiosity Nano | PIC18F57Q43 Curiosity Nano |
-| U3 | 1 | 5 V linear regulator | Texas Instruments | LM7805CT | Fixed 5 V, TO-220, THT |
+| U3 | 1 | 5 V linear regulator | STMicroelectronics | L78M05CV | Fixed 5 V, 500 mA, TO-220, THT |
 | LC1 | 1 | External load cell | Adafruit Industries | 4540 | 1 kgf (2 lb) load cell |
 | J1 | 1 | Team connector | Adam Tech | BHR-08-VUA | 8-position, 2×4, 2.54 mm, shrouded THT |
 | J2 | 1 | Load-cell connector | On Shore Technology | OSTVN04A150 | 4-position, 2.54 mm screw terminal, THT |
@@ -35,8 +35,8 @@ The team interface uses two command inputs, C1 and C0, to select one of four wei
 | R3 | 1 | LED current-limiting resistor | YAGEO | MFR-25FTE52-1K2 | 1.2 kΩ, ±1%, 0.25 W |
 | R4 | 1 | Button pull-up resistor | YAGEO | MFR-25FTF52-10K | 10 kΩ, ±1%, 0.25 W |
 | R5, R6 | 2 | NAU7802 digital-interface pull-up resistor | YAGEO | MFR-25FRF52-4K7 | 4.7 kΩ, ±1%, 0.25 W, THT |
-| C1 | 1 | LM7805 input capacitor | TDK | FA24X8R1E334KNU06 | 0.33 µF, 25 V, ceramic THT |
-| C2 | 1 | LM7805 output capacitor | TDK | FA28X8R1E104KNU06 | 0.1 µF, 25 V, ceramic THT |
+| C1 | 1 | 5 V regulator input capacitor | TDK | FA24X8R1E334KNU06 | 0.33 µF, 25 V, ceramic THT |
+| C2 | 1 | 5 V regulator output capacitor | TDK | FA28X8R1E104KNU06 | 0.1 µF, 25 V, ceramic THT |
 | C3, C4 | 2 | ADC filter / reference capacitor | KEMET | C320C104K3R5TA | 0.1 µF, 25 V, X7R, THT |
 | C5, C6 | 2 | ADC supply capacitor | TDK | FG18X7R1E105KRT06 | 1 µF, 25 V, X7R, THT |
 | C7 | 1 | Button debounce capacitor | TDK | FG18X7R1E105KRT06 | 1 µF, 25 V, X7R, THT |
@@ -91,4 +91,4 @@ The team interface does not carry subsystem power. J1 Pins 1 through 4 are used 
 
 The subsystem power path is:
 
-**9–12 V Input → 500 mA Fuse → LM7805CT → +5V_LOCAL → JP2 → +5V_BOARD**
+**9–12 V Input → 500 mA Fuse → L78M05CV → +5V_LOCAL → JP2 → +5V_BOARD**
