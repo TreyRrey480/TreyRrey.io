@@ -26,11 +26,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://embedded-systems-design.github.io/EGR304TroyReynoldsDataSheet/05-PCB/pcb/</loc>
-         <lastmod>2026-11-10</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://embedded-systems-design.github.io/EGR304TroyReynoldsDataSheet/05-Power-Budget/Power-Budget/</loc>
          <lastmod>2026-11-10</lastmod>
          <changefreq>daily</changefreq>
@@ -57,6 +52,11 @@
     </url>
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304TroyReynoldsDataSheet/Appendix/esp-32-table/</loc>
+         <lastmod>2026-11-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://embedded-systems-design.github.io/EGR304TroyReynoldsDataSheet/docs/06-PCB/pcb/</loc>
          <lastmod>2026-11-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
