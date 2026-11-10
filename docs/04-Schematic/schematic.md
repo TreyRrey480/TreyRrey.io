@@ -16,7 +16,7 @@ The subsystem also contains 5 V power regulation, input protection, load-cell in
 
 ## Final Schematic
 
-![Fill-A-Bot Liquid Amount Sensing Schematic](TReynolds_Liquid_Amount_Sensing_Schematic-1.png)
+![Fill-A-Bot Liquid Amount Sensing Schematic](TReynolds_Liquid_Amount_Sensing_Schematic.png)
 
 **Figure 1:** Final schematic for the Fill-A-Bot Liquid Amount Sensing subsystem.
 
